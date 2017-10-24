@@ -1,0 +1,98 @@
+---
+title: "State Data"
+author: "Quick Stats"
+output: 
+  html_document:
+    theme: yeti
+
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(DT)
+library(readxl)
+library(tidyverse)
+library(highcharter)
+
+
+
+st_dta_Poverty <- read_excel("state_dta.xlsx",sheet = "Poverty")
+st_dta_Nativity <- read_excel("state_dta.xlsx",sheet = "Nativity")
+st_dta_Insurance <- read_excel("state_dta.xlsx",sheet = "Insurance")
+st_dta_Education <- read_excel("state_dta.xlsx",sheet = "Education")
+knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+
+```
+
+
+## Data Tables {.tabset .tabset-fade .tabset-pills}
+> Please use the tabs below to view State Data by Topic
+
+**Data is from 2011-2015 ACS 5-Year File**
+
+### Poverty
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datatable(st_dta_Poverty,extensions = 
+            list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+          rownames= FALSE, 
+          options = list(
+            dom = 'Brtip',
+            buttons = c('copy', 'csv', 'excel'),
+            scrollX = TRUE,
+            lengthMenu = c(25, 50, 100), pageLength = 50,
+            deferRender = TRUE,
+            scrollY = 400,
+            scroller = TRUE)) %>%
+            formatCurrency(columns = colnames(st_dta_Poverty),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### Insurance
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datatable(st_dta_Insurance,extensions = 
+            list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+          rownames= FALSE, 
+          options = list(
+            dom = 'Brtip',
+            buttons = c('copy', 'csv', 'excel'),
+            scrollX = TRUE,
+            lengthMenu = c(25, 50, 100), pageLength = 50,
+            deferRender = TRUE,
+            scrollY = 400,
+            scroller = TRUE)) %>%
+            formatCurrency(columns = colnames(st_dta_Insurance),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+
+### Education
+```{r echo=FALSE}
+datatable(st_dta_Education,extensions = 
+            list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+          rownames= FALSE, 
+          options = list(
+            dom = 'Brtip',
+            buttons = c('copy', 'csv', 'excel'),
+            scrollX = TRUE,
+            lengthMenu = c(25, 50, 100), pageLength = 50,
+            deferRender = TRUE,
+            scrollY = 400,
+            scroller = TRUE)) %>%
+            formatCurrency(columns = colnames(st_dta_Education),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### Nativity
+```{r echo=FALSE}
+datatable(st_dta_Nativity,extensions = 
+            list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+          rownames= FALSE, 
+          options = list(
+            dom = 'Brtip',
+            buttons = c('copy', 'csv', 'excel'),
+            scrollX = TRUE,
+            lengthMenu = c(25, 50, 100), pageLength = 50,
+            deferRender = TRUE,
+            scrollY = 400,
+            scroller = TRUE)) %>%
+            formatCurrency(columns = c(2:4,6:8),currency = "", interval = 3, mark = ",", digits=0) %>%
+            formatPercentage(c(5,9))
+  
+```
+
