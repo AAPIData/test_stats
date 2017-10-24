@@ -1,0 +1,21 @@
+---
+title: "State Data"
+---
+
+## Using the menu below, please select the report you would like to view
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(bsselectR)
+library(stringr)
+setwd("~/quick_stats/")
+state_plots <- paste0(list.files("state",full.names = TRUE))
+names(state_plots) <-str_replace_all(state_plots, 
+                                      c("\\.html" = "", 
+                                        "state/" = ""))
+
+
+bsselect(state_plots, type = "iframe",live_search = TRUE, show_tick = TRUE,frame_width ="100%", frame_height = "800")
+```
+
+
+

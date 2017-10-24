@@ -1,0 +1,8 @@
+name: "AAPI Data 2017 Ethnic Group Profiles"
+output_dir: "."
+output:
+  html_document:
+    theme: simplex
+    includes:
+      in_header: 
+    css: 

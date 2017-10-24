@@ -1,0 +1,29 @@
+
+
+
+body{
+  font-family: Avenir Next;
+  font-size: 20pt;
+  font-color:white;
+  line-height: 1.5;
+  font-weight: 600;
+}
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+  font-size: 22pt;
+  color:#F5E487;
+  text-align: center;
+}
+
+h2{
+	text-align: left;
+}
+
+body {
+    background-color: #262324;
+}
+
+.output_style {
+color:#E26069;
+font-size: 24pt;
+}
