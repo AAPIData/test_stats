@@ -4,7 +4,7 @@ author: "Quick Stats"
 output: 
   html_document:
     theme: yeti
-
+    css: style.css
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}

@@ -1,0 +1,217 @@
+---
+title: "National Data"
+author: "Data is from 2011-2015 ACS 5-Year File"
+output: 
+  html_document:
+    theme: yeti
+    css: style.css
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+library(forcats)
+library(DT)
+library(readxl)
+library(tidyverse)
+library(highcharter)
+library(glue)
+knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+national_cvap<- readxl::read_xlsx("national_dta.xlsx", sheet = "CVAP")
+national_edu<- readxl::read_xlsx("national_dta.xlsx", sheet = "Education")
+national_edu<- national_edu %>% rename(`HS/GED` = total_hsged,
+                                       `HS or Higher` = total_hs_higher,
+                                       `Bachelor's` = total_ba,
+                                       `BA or Higher` = total_ba_higher)
+
+
+```
+
+Use the Table of Contents to Select the topic, then use the tabs to select the population group
+
+
+
+## Citizen Voting Age Population {.tabset .tabset-fade .tabset-pills}
+
+
+
+### Major Racial Groups
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_cvap %>%
+  filter(group_ID ==  "Major Racial Groups") %>%
+  arrange(desc(CVAP)) %>%
+  rename(Total = total_pop)%>%
+  select(Group, CVAP,Total )%>%
+  datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+
+### Asian Detailed Origin
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_cvap %>%
+  filter(group_ID ==  "Asian Detail") %>%
+  arrange(desc(CVAP)) %>%
+  rename(Total = total_pop)%>%
+  select(Group, CVAP,Total)%>%
+    datatable(colnames = c('Group-Alone' = 'Group'), extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### Asian Detailed Origin Combo
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_cvap %>%
+  filter(group_ID ==  "Asian Detail Combo") %>%
+  arrange(desc(CVAP)) %>%
+  rename(Total = total_pop)%>%
+  select(Group, CVAP,Total)%>%
+   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### NHPI Detailed Origin
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_cvap %>%
+  filter(group_ID ==  "NHPI Detail") %>%
+  arrange(desc(CVAP)) %>%
+  rename(Total = total_pop)%>%
+  select(Group, CVAP,Total)%>%
+   datatable(colnames = c('Group-Alone' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### NHPI Detailed Origin Combo
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_cvap %>%
+  filter(group_ID ==  "NHPI Detail Combo") %>%
+  arrange(desc(CVAP)) %>%
+  rename(Total = total_pop)%>%
+  select(Group, CVAP,Total)%>%
+   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+
+## Education {.tabset .tabset-fade .tabset-pills}
+
+### Major Racial Groups
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "Major Racial Groups") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID)%>%
+  datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+
+### Asian Detailed Origin
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "Asian Detail") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID)%>%
+  datatable(colnames = c('Group-Alone' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### Asian Detailed Origin Combo
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "Asian Detail Combo") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID)%>%
+   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### NHPI Detailed Origin
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "NHPI Detail") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID)%>%
+   datatable(colnames = c('Group-Alone' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
+```
+
+### NHPI Detailed Origin Combo
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "NHPI Detail Combo") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID)%>%
+   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brtip',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
+```
+

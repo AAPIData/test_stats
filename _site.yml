@@ -5,4 +5,4 @@ output:
     theme: simplex
     includes:
       in_header: 
-    css: 
+    css: style.css

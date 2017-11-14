@@ -1,29 +1,43 @@
 
 
+.dataTable{
+   font-size:2vmin; 
+}
+
+table {
+   font-size:2vmin; 
+}
+
+.nav-pills{
+ font-size: 2vmin;
+  font-weight: 400;
+}
+
+.thead{
+  font-family: Avenir Next;
+  font-size: 3vmin;
+  line-height: 1.5;
+}
 
 body{
   font-family: Avenir Next;
-  font-size: 20pt;
-  font-color:white;
+  font-size: 2vmin;
   line-height: 1.5;
-  font-weight: 600;
+ 
 }
 /* Headers */
-h1,h2,h3,h4,h5,h6{
-  font-size: 22pt;
-  color:#F5E487;
+h1{
+  font-size: 5.9vw;
   text-align: center;
+  font-weight: 600;
+  color:#e26069;
 }
 
 h2{
+  font-size: 3vw;
 	text-align: left;
+	font-weight: 600;
+	color:#e26069;
 }
 
-body {
-    background-color: #262324;
-}
 
-.output_style {
-color:#E26069;
-font-size: 24pt;
-}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Data is from 2011-2015 ACS 5-Year File" />
+
+
+<title>National Data</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.10.12/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.12/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.12/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.print.min.js"></script>
+<link href="site_libs/dt-ext-fixedcolumns-1.10.12/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-fixedcolumns-1.10.12/js/dataTables.fixedColumns.min.js"></script>
+<link href="site_libs/dt-ext-scroller-1.10.12/css/scroller.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-scroller-1.10.12/js/dataTables.scroller.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">National Data</h1>
+<h4 class="author"><em>Data is from 2011-2015 ACS 5-Year File</em></h4>
+
+</div>
+
+
+<p>Use the Table of Contents to Select the topic, then use the tabs to select the population group</p>
+<div id="citizen-voting-age-population" class="section level2 tabset tabset-fade tabset-pills">
+<h2>Citizen Voting Age Population</h2>
+<div id="major-racial-groups" class="section level3">
+<h3>Major Racial Groups</h3>
+<div id="htmlwidget-dd8fd6efc0170f82f474" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd8fd6efc0170f82f474">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Total population","Asian Alone/Combo","Asian Alone","Native Hawaiian and Other Pacific Islander Alone/Combo","Native Hawaiian and Other Pacific Islander Alone"],[282005382,24908927,22958219,1037116,500510],[316515021,19167716,16235305,1262434,546255]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group<\/th>\n      <th>CVAP<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="asian-detailed-origin" class="section level3">
+<h3>Asian Detailed Origin</h3>
+<div id="htmlwidget-119cf6e791954d85eac8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-119cf6e791954d85eac8">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Chinese","Asian Indian","Filipino","Vietnamese","Korean","Japanese","Pakistani","Cambodian","Thai","Laotian","Hmong","Taiwanese","Bangladeshi","Burmese","Nepalese","Indonesian","Sri Lankan","Bhutanese","Malaysian","Mongolian"],[5414353,4716473,3931110,2430258,2191253,993935,546088,350950,298681,278479,262119,229618,210351,162272,151905,108823,69880,33000,31391,22621],[3693977,3303512,2717844,1710547,1460214,779637,414880,263396,188673,207999,267009,148275,153234,126590,103526,71451,46036,21441,18803,15919]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone<\/th>\n      <th>CVAP<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="asian-detailed-origin-combo" class="section level3">
+<h3>Asian Detailed Origin Combo</h3>
+<div id="htmlwidget-6b0761e247969144f119" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b0761e247969144f119">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Chinese","Asian Indian","Filipino","Vietnamese","Korean","Japanese","Pakistani","Cambodian","Thai","Laotian","Hmong","Taiwanese","Bangladeshi","Burmese","Nepalese","Indonesian","Sri Lankan","Malaysian","Bhutanese","Mongolian","Okinawan"],[5925834,4963074,4504514,2583533,2355511,1361511,578493,382247,348110,299409,269245,256911,223625,174900,160068,140602,74505,42197,37939,26041,9068],[4428363,3590279,3707082,1928363,1792437,1388163,455005,316640,278281,256416,280410,181029,164821,138426,111021,108477,52267,28818,24875,20546,11627]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone/Combo<\/th>\n      <th>CVAP<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="nhpi-detailed-origin" class="section level3">
+<h3>NHPI Detailed Origin</h3>
+<div id="htmlwidget-86e7ffaa9093690f0329" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-86e7ffaa9093690f0329">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Polynesian","Native Hawaiian","Micronesian","Samoan","Guamanian or Chamorro","Melanesian","Fijian","Tongan","Marshallese"],[288500,138775,134080,90498,60527,49263,48239,48207,23488],[344487,174460,138360,109455,73088,34239,33468,45453,23444]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone<\/th>\n      <th>CVAP<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="nhpi-detailed-origin-combo" class="section level3">
+<h3>NHPI Detailed Origin Combo</h3>
+<div id="htmlwidget-83ac33ead00e7f604b87" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83ac33ead00e7f604b87">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Polynesian","Native Hawaiian","Micronesian","Samoan","Guamanian or Chamorro","Melanesian","Fijian","Tongan","Marshallese","Palauan"],[554348,372333,171514,125546,91205,58071,56692,55202,25502,9842],[783326,549858,207128,182968,130476,43211,42110,62458,26856,8957]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone/Combo<\/th>\n      <th>CVAP<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="education" class="section level2 tabset tabset-fade tabset-pills">
+<h2>Education</h2>
+<div id="major-racial-groups-1" class="section level3">
+<h3>Major Racial Groups</h3>
+<div id="htmlwidget-71fc0a75fd0476bd11cb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-71fc0a75fd0476bd11cb">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Total population","Asian Alone/Combo","Asian Alone","Native Hawaiian and Other Pacific Islander alone/combo","Native Hawaiian and Other Pacific Islander alone"],[211462522,12383066,11220496,683036,327214],[58722528,1936554,1716257,219306,117232],[61558628,2520723,2160511,238985,114521],[39166047,3632874,3330457,99377,34778],[23786225,2619811,2440065,43558,15193]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group<\/th>\n      <th>Total<\/th>\n      <th>HS/GED<\/th>\n      <th>HS or Higher<\/th>\n      <th>Bachelor's<\/th>\n      <th>BA or Higher<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="asian-detailed-origin-1" class="section level3">
+<h3>Asian Detailed Origin</h3>
+<div id="htmlwidget-efddbdc297ceb3c4ff87" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-efddbdc297ceb3c4ff87">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Chinese","Asian Indian","Filipino","Vietnamese","Korean","Japanese","Pakistani","Cambodian","Thai","Laotian","Hmong","Taiwanese","Bangladeshi","Burmese","Nepalese","Indonesian","Sri Lankan","Bhutanese","Malaysian","Mongolian"],[2575144,2251829,1995300,1155779,1042748,653893,244845,171518,148187,138426,118806,110533,93875,68005,63489,49133,32654,13964,12302,9936],[375971,197964,301191,251059,187183,124921,36923,42415,25508,40830,27984,8018,17304,10381,8810,9328,5448,2480,1813,1018],[369957,230685,587477,264024,212032,174843,42117,42434,32717,35933,35014,13418,15916,7591,9770,12978,5827,1270,1795,2166],[665711,730705,780469,224552,357593,211441,72580,21464,41232,14737,15597,33920,23957,11733,14412,15269,8430,976,4311,4014],[685140,906402,178812,91207,206626,111744,60737,6776,24038,4494,4298,50107,21288,4764,12922,8294,10274,410,2793,2169]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone<\/th>\n      <th>Total<\/th>\n      <th>HS/GED<\/th>\n      <th>HS or Higher<\/th>\n      <th>Bachelor's<\/th>\n      <th>BA or Higher<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="asian-detailed-origin-combo-1" class="section level3">
+<h3>Asian Detailed Origin Combo</h3>
+<div id="htmlwidget-dbfd99addd2818644fc3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dbfd99addd2818644fc3">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Chinese","Asian Indian","Filipino","Vietnamese","Korean","Japanese","Pakistani","Cambodian","Thai","Laotian","Taiwanese","Hmong","Bangladeshi","Burmese","Nepalese","Indonesian","Sri Lankan","Malaysian","Bhutanese","Mongolian","Okinawan"],[2883817,2381484,2352554,1233467,1151607,912130,260374,186325,178461,148185,124287,121819,99790,73834,67041,66328,34769,17178,16142,12232,7419],[429764,219021,379770,262711,204255,171494,38569,44838,31319,43174,9191,28890,18300,11032,9516,12115,5768,2489,2782,1301,1265],[455243,259030,717669,283941,251378,263047,45581,46591,43643,38789,15995,35787,16966,8438,10387,19009,6171,2854,1471,2817,2364],[754840,762020,871834,244371,389693,286563,76869,24150,48507,16454,38425,15923,25546,13269,15030,20203,9126,5873,1178,4645,2256],[736046,935506,213662,99741,222105,150663,64966,7589,27877,4990,55126,4433,22367,5704,13380,11069,10864,3777,491,2724,1254]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone/Combo<\/th>\n      <th>Total<\/th>\n      <th>HS/GED<\/th>\n      <th>HS or Higher<\/th>\n      <th>Bachelor's<\/th>\n      <th>BA or Higher<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="nhpi-detailed-origin-1" class="section level3">
+<h3>NHPI Detailed Origin</h3>
+<div id="htmlwidget-650f7e99353c45d78e42" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-650f7e99353c45d78e42">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Polynesian","Native Hawaiian","Micronesian","Samoan","Guamanian or Chamorro","Tongan","Melanesian","Fijian","Marshallese"],[207985,113378,79000,62839,46465,25007,23239,22778,10403],[78945,43553,27890,23949,15202,9183,5811,5766,5109],[72140,38934,27495,22544,17051,8159,8976,8848,2442],[22878,13705,7190,5860,5632,2183,2568,2487,167],[10402,6502,2837,2639,2461,1008,776,699,73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone<\/th>\n      <th>Total<\/th>\n      <th>HS/GED<\/th>\n      <th>HS or Higher<\/th>\n      <th>Bachelor's<\/th>\n      <th>BA or Higher<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="nhpi-detailed-origin-combo-1" class="section level3">
+<h3>NHPI Detailed Origin Combo</h3>
+<div id="htmlwidget-02f8371c8987239889a5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-02f8371c8987239889a5">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Polynesian","Native Hawaiian","Micronesian","Samoan","Guamanian or Chamorro","Tongan","Melanesian","Fijian","Marshallese","Palauan"],[411577,296878,103294,85269,67519,28702,27398,26738,11133,4739],[146067,105365,34115,31241,20472,10180,7011,6941,5413,1246],[146131,105279,36582,30991,25050,9472,10210,10055,2539,2355],[54617,41888,11709,9337,9724,2852,3261,3109,350,673],[25142,19716,5008,3726,4400,1242,970,833,80,162]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Group-Alone/Combo<\/th>\n      <th>Total<\/th>\n      <th>HS/GED<\/th>\n      <th>HS or Higher<\/th>\n      <th>Bachelor's<\/th>\n      <th>BA or Higher<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brtip","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"lengthMenu":[25,50,100],"pageLength":50,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
