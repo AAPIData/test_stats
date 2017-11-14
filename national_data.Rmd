@@ -17,6 +17,9 @@ library(tidyverse)
 library(highcharter)
 library(glue)
 knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
 national_cvap<- readxl::read_xlsx("national_dta.xlsx", sheet = "CVAP")
 national_edu<- readxl::read_xlsx("national_dta.xlsx", sheet = "Education")
 national_edu<- national_edu %>% rename(`HS/GED` = total_hsged,
@@ -130,6 +133,27 @@ national_edu %>%
   filter(group_ID ==  "Major Racial Groups") %>%
   arrange(desc(total_pop)) %>%
   rename(Total = total_pop)%>%
+  select(-group_ID) %>%
+  mutate(BA_Higher = round((`BA or Higher`/Total)*100,2))%>%
+hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
+hc_add_theme(hc_theme_tufte()) %>% # hc_colors("#008fd5") %>%
+  hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
+         labels= list(style =list(color ="black", fontSize='12px'),
+                      format= "{value}%"), max = 100) %>%
+  hc_xAxis(title = list(text = "Group"),
+           labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
+   hc_tooltip(pointFormat = "{point.y}%") %>%
+ hc_title(text = "Educational Attainment",
+           margin = 20, align = "left",
+           style = list(color = "#E26069"))%>%
+  hc_subtitle(text = "(2011-2015 ACS)",
+            margin = 20, align = "left",
+           style = list(color = "#E26069"))
+
+national_edu %>%
+  filter(group_ID ==  "Major Racial Groups") %>%
+  arrange(desc(total_pop)) %>%
+  rename(Total = total_pop)%>%
   select(-group_ID)%>%
   datatable(extensions = 
               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
@@ -145,6 +169,27 @@ national_edu %>%
 
 ### Asian Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "Asian Detail") %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID) %>%
+  mutate(BA_Higher = round((`BA or Higher`/Total)*100,2))%>%
+  arrange(desc(BA_Higher)) %>%
+hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
+hc_add_theme(hc_theme_tufte()) %>%
+  hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
+         labels= list(style =list(color ="black", fontSize='12px'),
+                      format= "{value}%"), max = 100) %>%
+  hc_xAxis(title = list(text = "Group"),
+           labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
+   hc_tooltip(pointFormat = "{point.y}%") %>%
+ hc_title(text = "Educational Attainment",
+           margin = 20, align = "left",
+           style = list(color = "#E26069"))%>%
+  hc_subtitle(text = "(2011-2015 ACS)",
+            margin = 20, align = "left",
+           style = list(color = "#E26069"))
+
 national_edu %>%
   filter(group_ID ==  "Asian Detail") %>%
   arrange(desc(total_pop)) %>%
@@ -165,6 +210,27 @@ national_edu %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "Asian Detail Combo") %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID) %>%
+  mutate(BA_Higher = round((`BA or Higher`/Total)*100,2))%>%
+  arrange(desc(BA_Higher)) %>%
+hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
+hc_add_theme(hc_theme_tufte()) %>%
+  hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
+         labels= list(style =list(color ="black", fontSize='12px'),
+                      format= "{value}%"), max = 100) %>%
+  hc_xAxis(title = list(text = "Group"),
+           labels= list(style =list(color ="#E26069", fontSize='12px'))) %>%
+   hc_tooltip(pointFormat = "{point.y}%") %>%
+ hc_title(text = "Educational Attainment",
+           margin = 20, align = "left",
+           style = list(color = "#E26069"))%>%
+  hc_subtitle(text = "(2011-2015 ACS)",
+            margin = 20, align = "left",
+           style = list(color = "#E26069"))
+
+national_edu %>%
+  filter(group_ID ==  "Asian Detail Combo") %>%
   arrange(desc(total_pop)) %>%
   rename(Total = total_pop)%>%
   select(-group_ID)%>%
@@ -183,6 +249,26 @@ national_edu %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "NHPI Detail") %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID) %>%
+  mutate(BA_Higher = round((`BA or Higher`/Total)*100,2))%>%
+  arrange(desc(BA_Higher)) %>%
+hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
+hc_add_theme(hc_theme_tufte()) %>%
+  hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
+         labels= list(style =list(color ="black", fontSize='12px'),
+                      format= "{value}%"), max = 100) %>%
+  hc_xAxis(title = list(text = "Group"),
+           labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
+   hc_tooltip(pointFormat = "{point.y}%") %>%
+ hc_title(text = "Educational Attainment",
+           margin = 20, align = "left",
+           style = list(color = "#E26069"))%>%
+  hc_subtitle(text = "(2011-2015 ACS)",
+            margin = 20, align = "left",
+           style = list(color = "#E26069"))
+national_edu %>%
+  filter(group_ID ==  "NHPI Detail") %>%
   arrange(desc(total_pop)) %>%
   rename(Total = total_pop)%>%
   select(-group_ID)%>%
@@ -199,6 +285,26 @@ national_edu %>%
 
 ### NHPI Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+national_edu %>%
+  filter(group_ID ==  "NHPI Detail Combo") %>%
+  rename(Total = total_pop)%>%
+  select(-group_ID) %>%
+  mutate(BA_Higher = round((`BA or Higher`/Total)*100,2))%>%
+  arrange(desc(BA_Higher)) %>%
+hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
+hc_add_theme(hc_theme_tufte()) %>%
+  hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
+         labels= list(style =list(color ="black", fontSize='12px'),
+                      format= "{value}%"), max = 100) %>%
+  hc_xAxis(title = list(text = "Group"),
+           labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
+   hc_tooltip(pointFormat = "{point.y}%") %>%
+ hc_title(text = "Educational Attainment",
+           margin = 20, align = "left",
+           style = list(color = "#E26069"))%>%
+  hc_subtitle(text = "(2011-2015 ACS)",
+            margin = 20, align = "left",
+           style = list(color = "#E26069"))
 national_edu %>%
   filter(group_ID ==  "NHPI Detail Combo") %>%
   arrange(desc(total_pop)) %>%
