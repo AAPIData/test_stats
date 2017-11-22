@@ -1,21 +1,19 @@
 ---
-title: "State Data"
+title: ""
+output: 
+  html_document:
+    md_extensions: +raw_html
+    css: style.css
 ---
 
-## Using the menu below, please select the report you would like to view
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(bsselectR)
-library(stringr)
-setwd("~/quick_stats/")
-state_plots <- paste0(list.files("state",full.names = TRUE))
-names(state_plots) <-str_replace_all(state_plots, 
-                                      c("\\.html" = "", 
-                                        "state/" = ""))
 
 
-bsselect(state_plots, type = "iframe",live_search = TRUE, show_tick = TRUE,frame_width ="100%", frame_height = "800")
-```
+<div class="jumbotron">
+  <h1>Welcome to QuickStats</h1>
+  <p>Using the buttons below, select the level of geography.</p>
+</div>
 
-
-
+<div class="container">
+  <a href="national_data.html" type="button" class="btn btn-default btn-block">National Data</a>
+  <a href="state_data.html" type="button" class="btn btn-default btn-block">State Data</a>
+</div>

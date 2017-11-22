@@ -11,21 +11,18 @@
 
 
 
-<title>State Data</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
-<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
-<link href="site_libs/bootstrap-select-1.12.1/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-select-1.12.1/dist/js/bootstrap-select.min.js"></script>
-<script src="site_libs/bsselect-binding-0.1.0/bsselect.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -99,6 +96,58 @@ button.code-folding-btn:focus {
 </style>
 
 
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
 
 <div class="container-fluid main-container">
 
@@ -116,34 +165,57 @@ $(document).ready(function () {
 
 
 
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">QuickStats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="national_data.html">National Data</a>
+</li>
+<li>
+  <a href="national_data.html">State Data</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
 <div class="fluid-row" id="header">
 
 
 
-<h1 class="title toc-ignore">State Data</h1>
 
 </div>
 
 
-<div id="using-the-menu-below-please-select-the-report-you-would-like-to-view" class="section level2">
-<h2>Using the menu below, please select the report you would like to view</h2>
-
-<html>
-<select id="3KMZL0oBJt" class="selectpicker" data-dropdown-align-right="false" data-dropup-auto="true" data-header="false" data-live-search="true" data-live-search-style="contains" data-show-tick="true" data-width="false" data-size="auto"><option value="state/Education.html">Education</option>
-<option value="state/Insurance.html">Insurance</option>
-<option value="state/Nativity.html">Nativity</option>
-<option value="state/Poverty.html">Poverty</option></select>
-<iframe src="state/Education.html" frameborder="0" height="800" width="100%" id="y26LZfVUar"></iframe>
-<script>$(document).ready(function(){
-                   $("#3KMZL0oBJt").change(function(){
-                   $("#y26LZfVUar").attr("src",$(this).val());
-
-                   });
-
-    });</script>
-</html>
-<div id="htmlwidget-419f3035317597aadf28" style="width:672px;height:480px;" class="bsselect html-widget" width="672" height="480"></div>
-<script type="application/json" data-for="htmlwidget-419f3035317597aadf28">{"x":[],"evals":[],"jsHooks":[]}</script>
+<div class="jumbotron">
+<h1>
+Welcome to QuickStats
+</h1>
+<p>
+Using the buttons below, select the level of geography.
+</p>
+</div>
+<div class="container">
+<p><a href="national_data.html" type="button" class="btn btn-default btn-block">National Data</a> <a href="state_data.html" type="button" class="btn btn-default btn-block">State Data</a></p>
 </div>
 
 

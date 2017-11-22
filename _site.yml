@@ -1,8 +1,19 @@
 name: "AAPI Data 2017 Ethnic Group Profiles"
 output_dir: "."
+navbar:  
+  title: "QuickStats"
+  type: default
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "National Data"
+      href: national_data.html
+    - text: "State Data"
+      href: national_data.html
 output:
   html_document:
-    theme: simplex
+    theme: yeti
     includes:
       in_header: 
     css: style.css
