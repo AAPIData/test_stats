@@ -16,6 +16,15 @@ for(topic in topics)
   )
 
 
+national_topics = c("Poverty","Nativity","Education","Insurance")
+
+for(topic in topics)
+  rmarkdown::render(input = "national_report_template.Rmd", 
+                    output_file = paste0("national/",national_topics,".html"),
+                    params = list(national_topics = national_topics)
+  )
+
+
 
 
 

@@ -12,12 +12,12 @@ library(DT)
 library(readxl)
 library(tidyverse)
 library(highcharter)
-
-geo_selected <- "national_dta"
+library(glue)
 
 topic_selected <- params$topic
-st_dta <- read_excel("state_dta.xlsx",sheet = topic_selected)
+national_dta <- read_excel("national_dta.xlsx",sheet = topic_selected)
 
+national_dta <- read_excel("national_dta.xlsx",sheet = "CVAP")
 
 knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
 #hcoptslang <- getOption("highcharter.lang")
@@ -26,10 +26,16 @@ knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ pretty
 ```
 
 
-## State Data on `r topic_selected`
+## National Data on `r topic_selected`
+
+```{r}
+
+```
+
+## National Data on `r topic_selected`
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-datatable(st_dta,extensions = 
+datatable(national_dta,extensions = 
             list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
           rownames= FALSE, 
           options = list(
