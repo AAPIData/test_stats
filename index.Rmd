@@ -14,6 +14,11 @@ output:
 </div>
 
 <div class="container">
-  <a href="national_data.html" type="button" class="btn btn-default btn-block">National Data</a>
-  <a href="state_data.html" type="button" class="btn btn-default btn-block">State Data</a>
+  <a href="national_data.html" type="button" class="btn btn-default btn-block">National</a>
+  <a href="state_data.html" type="button" class="btn btn-default btn-block">State</a>
+  <a href="state_data.html" type="button" class="btn btn-default btn-block">County</a>
+  <a href="state_data.html" type="button" class="btn btn-default btn-block">Congressional District</a>
+  <a href="state_data.html" type="button" class="btn btn-default btn-block">Metropolitan Statistical Area</a>
 </div>
+
+

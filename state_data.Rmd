@@ -1,0 +1,90 @@
+---
+title: ""
+author: ""
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+library(forcats)
+library(DT)
+library(readxl)
+library(tidyverse)
+library(highcharter)
+library(glue)
+knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
+#national_cvap<- readxl::read_xlsx("state_dta.xlsx", sheet = "CVAP")
+state_edu<- readxl::read_xlsx("state_dta.xlsx")
+state_edu$pop_id<- as.factor(state_edu$pop_id) 
+state_edu <- state_edu %>% mutate(
+  pct_hs_higher = tot_hs_higher/total,
+  pct_ba_higher = tot_bahigher/total)
+
+state_edu_long<- state_edu %>% select(-pop_group , -tot_hs_higher,-tot_bahigher )  %>%
+  gather(estimate_type, estimate, -Geography ,-pop_id)
+
+#state_edu<- state_edu %>% rename( `HS or Higher` = tot_hs_higher,
+#                                       `BA or Higher` = tot_bahigher)
+
+avg_hs_higher <- state_edu %>% filter(pop_id == 1) %>% select(Geography, pct_hs_higher) %>%  summarize(mean = mean(pct_hs_higher)) %>% pull() %>% round(.,4)
+avg_hs_higher <- avg_hs_higher*100
+racial_groups<- c(1,2,4,6,12,32,50,60)
+aapi_alone<- c(1,12,50)
+aapi_combo<- c(1,31,60)
+
+Asian_orign_alone <- c(13:29)
+Asian_origin_combo<- c(32:48)
+NHPI_origin_alone <- c(51,55,56)
+NHPI_origin_combo<- c(61:66)
+
+state_edu_alone <- state_edu_long  %>% filter(pop_id %in% aapi_alone )
+state_edu_alone$pop_id <- fct_recode(state_edu_alone$pop_id,
+               "Total Population" = "1",
+               "Asian Alone" = "12",
+               "NHPI Alone" = "50")
+
+
+
+## Recoding state_edu_alone$estimate_type
+state_edu_alone$estimate_type <- fct_recode(state_edu_alone$estimate_type,
+               "HS or Higher" = "pct_hs_higher",
+               "BA or Higher" = "pct_ba_higher",
+               "Total" ="total")
+```
+
+<div class="jumbotron">
+  <h1>State Data</h1>
+  <p>Use the buttons to select the topic and then the tabs for population groups</p>
+</div>
+
+# Education {.tabset .tabset-fade .tabset-pills}
+
+## Major Racial Groups
+
+On average, about `r avg_hs_higher` % of Americans have a HS degree or higher.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+state_edu_alone %>%
+  mutate(long_key=paste(pop_id, estimate_type, sep=": ")) %>% #Combining Pop_ID and Estimate type
+  select(-pop_id, -estimate_type) %>% 
+  spread(long_key, estimate,fill = "No Data") %>% 
+  rename(State= Geography) %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brt',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2,3,5,6),2)
+
+```
+
+
+
+

@@ -1,10 +1,8 @@
 ---
-title: "National Data"
-author: "Data is from 2011-2015 ACS 5-Year File"
+title: ""
+author: ""
 output: 
   html_document:
-    theme: yeti
-    css: style.css
     toc: true
     toc_float: true
 ---
@@ -30,15 +28,18 @@ national_edu<- national_edu %>% rename(`HS/GED` = total_hsged,
 
 ```
 
-Use the Table of Contents to Select the topic, then use the tabs to select the population group
+<div class="jumbotron">
+  <h1>National Data</h1>
+  <p>Use the buttons to select the topic and then the tabs for population groups</p>
+</div>
 
 
 
-## Citizen Voting Age Population {.tabset .tabset-fade .tabset-pills}
+# Citizen Voting Age Population {.tabset .tabset-fade .tabset-pills}
 
 
 
-### Major Racial Groups
+## Major Racial Groups
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_cvap %>%
   filter(group_ID ==  "Major Racial Groups") %>%
@@ -56,7 +57,7 @@ national_cvap %>%
 ```
 
 
-### Asian Detailed Origin
+## Asian Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_cvap %>%
   filter(group_ID ==  "Asian Detail") %>%
@@ -73,7 +74,7 @@ national_cvap %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### Asian Detailed Origin Combo
+## Asian Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_cvap %>%
   filter(group_ID ==  "Asian Detail Combo") %>%
@@ -90,7 +91,7 @@ national_cvap %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### NHPI Detailed Origin
+## NHPI Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_cvap %>%
   filter(group_ID ==  "NHPI Detail") %>%
@@ -107,7 +108,7 @@ national_cvap %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### NHPI Detailed Origin Combo
+## NHPI Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_cvap %>%
   filter(group_ID ==  "NHPI Detail Combo") %>%
@@ -125,9 +126,9 @@ national_cvap %>%
 ```
 
 
-## Education {.tabset .tabset-fade .tabset-pills}
+# Education {.tabset .tabset-fade .tabset-pills}
 
-### Major Racial Groups
+## Major Racial Groups
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "Major Racial Groups") %>%
@@ -167,7 +168,7 @@ national_edu %>%
 ```
 
 
-### Asian Detailed Origin
+## Asian Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "Asian Detail") %>%
@@ -206,7 +207,7 @@ national_edu %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### Asian Detailed Origin Combo
+## Asian Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "Asian Detail Combo") %>%
@@ -245,7 +246,7 @@ national_edu %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### NHPI Detailed Origin
+## NHPI Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "NHPI Detail") %>%
@@ -283,7 +284,7 @@ national_edu %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
-### NHPI Detailed Origin Combo
+## NHPI Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_ID ==  "NHPI Detail Combo") %>%

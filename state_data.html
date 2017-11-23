@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.10.12/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.12/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.12/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.print.min.js"></script>
+<link href="site_libs/dt-ext-fixedcolumns-1.10.12/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-fixedcolumns-1.10.12/js/dataTables.fixedColumns.min.js"></script>
+<link href="site_libs/dt-ext-scroller-1.10.12/css/scroller.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-scroller-1.10.12/js/dataTables.scroller.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">QuickStats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="national_data.html">National Data</a>
+</li>
+<li>
+  <a href="national_data.html">State Data</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div class="jumbotron">
+<h1>
+State Data
+</h1>
+<p>
+Use the buttons to select the topic and then the tabs for population groups
+</p>
+</div>
+<div id="education" class="section level1 tabset tabset-fade tabset-pills">
+<h1>Education</h1>
+<div id="major-racial-groups" class="section level2">
+<h2>Major Racial Groups</h2>
+<p>On average, about 87.43 % of Americans have a HS degree or higher. <div id="htmlwidget-96fbf08e4378c6c56e33" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-96fbf08e4378c6c56e33">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],["0.497989646680404","0.234861181957298","0.521164021164021","0.499634573219987","0.496903492104151","0.492761617217287","0.636509335683949","0.693513489645428","0.766629650194336","0.469378507829461","0.520667536466571","0.31680001930898","0.430926701930343","0.627414560830894","0.577378588934376","0.487222985163045","0.481805658577938","0.548228176318064","0.397122666303269","0.404573534193129","0.62134785972254","0.574973406973619","0.627979585356962","0.430673429417968","0.366338224269037","0.564190072322751","0.470917225950783","0.44514319707657","0.363266721301141","0.581483137138032","0.681350180090978","0.479368514237938","0.458038000257215","0.532875232400382","0.498167219410019","0.627137890916184","0.409535299746225","0.465986809392913","0.53082759796627","0.444702242846094","0.427559143401727","0.43568107456518","0.505924537768006","0.56039438196732","0.463290894595705","0.444444444444444","0.592783871502689","0.476677185164654","0.602574146614438","0.465815138740326","0.445409102867666"],["0.823490978539478","0.796400204037018","0.845919512586179","0.823595030195792","0.849719657557342","0.836536414484507","0.848305152656463","0.860687949838831","0.883731260410883","0.840630915878809","0.836568513523151","0.871537356842016","0.830940441024936","0.880489473625178","0.817749907581089","0.793817486603657","0.789488184804493","0.809536156727168","0.719644908209551","0.763845236805029","0.853329164612369","0.791098055396776","0.841145618965862","0.771455832872998","0.773267644853807","0.813630950652067","0.889485458612975","0.729922665080309","0.876908529281977","0.836586698455272","0.895997460071462","0.810505090247381","0.765849022356687","0.807855132907894","0.82073660324664","0.831748420311967","0.803136830719308","0.829479036691653","0.782486204117063","0.743039443155452","0.801771499046978","0.661098674014121","0.811610028183978","0.841857182466665","0.824873770927452","0.748528329654157","0.876009807869987","0.844423952325619","0.849804141018467","0.799295287233373","0.897132333596422"],["39794","27446","137214","25997","3763433","103338","99832","22647","18010","359731","238369","414315","14557","445785","73037","37137","47185","34710","51367","9227","249477","264167","170074","139391","18674","68858","4470","23534","158630","20133","557496","20333","1096361","159208","5729","143541","48074","106591","258048","20688","44595","5807","67769","753787","41393","5436","337688","375212","8935","79465","3801"],["0.0982620320855615","0.0816041035206342","0.139426375737615","0.0291840381179273","0.156721656721657","0.244449378330373","0.308970099667774","No Data","No Data","0.183916495148486","0.144287833827893","0.132554454966559","0.165297741273101","0.26928221132412","0.218045112781955","0.118899733806566","0.338803088803089","0.229206963249516","0.195829555757026","No Data","0.327398047099368","0.28347280334728","0.305019305019305","0.379061371841155","No Data","0.137232194557035","0.161048689138577","0.142857142857143","0.142806863176419","No Data","0.409512761020882","0.156643356643357","0.250297689926173","0.0935765265662173","No Data","0.194627470856564","0.138285262741999","0.119124054116028","0.139794168096055","No Data","0.151294498381877","No Data","0.128622267412303","0.160557523486832","0.142356241234222","No Data","0.32730455075846","0.112209648600357","No Data","0.253229974160207","No Data"],["0.676470588235294","0.881557472604337","0.892548373816385","0.73198332340679","0.829135093840976","0.917628774422735","0.82890365448505","No Data","No Data","0.88503381358424","0.870919881305638","0.878112792230567","0.761806981519507","0.867588051716451","0.843776106934002","0.795031055900621","0.874517374517375","0.908123791102515","0.743427017225748","No Data","0.884549109707065","0.867154811715481","0.847104247104247","0.887184115523466","No Data","0.846554719166184","0.908239700374532","0.825537294563843","0.871359436867576","No Data","0.852088167053364","0.899300699300699","0.805191712312455","0.874438276500132","No Data","0.843385707045109","0.822204662188858","0.852327447833066","0.75557461406518","No Data","0.882686084142395","No Data","0.849517031011693","0.888726320653011","0.887018856163316","No Data","0.932030338389732","0.876871153464364","No Data","0.874677002583979","No Data"],["1496","4289","7287","3358","96866","4504","602","No Data","No Data","6802","2696","82683","974","2243","1197","1127","1036","1034","1103","No Data","1741","956","1295","1108","No Data","3454","534","791","11365","No Data","1724","715","4199","3783","No Data","1973","2531","8722","2332","No Data","1236","No Data","1967","12986","12834","No Data","3428","25185","No Data","774","No Data"],["0.235124257914625","0.27973688743433","0.274920069777296","0.2109799509971","0.314325308187258","0.381232818690651","0.375826835116156","0.300042147427264","0.545766953334273","0.27344415103798","0.288219217701596","0.308417840199906","0.258636446541735","0.323001570432612","0.241007925124291","0.266628735829612","0.310324982965163","0.222976594604252","0.225428538628262","0.289848516494416","0.3789935395633","0.404966695658398","0.269349501290085","0.337255077908237","0.206662148616369","0.271181551217827","0.294660857877784","0.292772749712029","0.230065538464641","0.348859908446784","0.368030508110078","0.26324697219375","0.34208053933541","0.283603712440376","0.276764309980129","0.260956304745707","0.241295546236415","0.307574811084608","0.286136255132678","0.318906362530025","0.258423112472963","0.270037148005858","0.24937603252576","0.275763588774638","0.311215877691886","0.359591166522007","0.363291680237742","0.328740947143646","0.191564249166871","0.27825016478967","0.257109547403922"],["0.836637030071764","0.915293687020928","0.853023774540825","0.841614864110955","0.808493736879826","0.897533277445992","0.888478209232781","0.873282016992068","0.871122938107994","0.862147009538704","0.847340045429336","0.902507348875113","0.887735896649812","0.872177761902137","0.872345192252668","0.908263327191531","0.895133866538874","0.836090830585649","0.828284881684161","0.908969255135252","0.878902833150718","0.883157611630817","0.888937290544466","0.91668767781487","0.817911578491676","0.877242553611529","0.919936041526661","0.899316274477538","0.845498204312939","0.914168049332807","0.877111940500649","0.829966179809946","0.848164995074724","0.850534638267074","0.910153195307993","0.884842714583727","0.863340593346898","0.889000328548508","0.884182774169423","0.851392024600321","0.849490359366818","0.902342665401178","0.847724539250362","0.81276187146152","0.902398641020954","0.907785744875268","0.873017672369423","0.895492432602101","0.844517986808595","0.90391542320285","0.915388058458592"],["3239351","464440","4361304","1962741","25257858","3520177","2462855","631118","453952","13824205","6500205","962052","1030748","8600178","4316273","2049344","1869698","2955216","3040041","952777","4018459","4610510","6652665","3632992","1940365","4052300","690448","1215400","1884237","925145","6091495","1367822","13435795","6582301","468030","7817508","2512392","2714972","8814112","720641","3210007","551039","4380036","16765143","1674198","436657","5566373","4721438","1298118","3873119","384272"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>State<\/th>\n      <th>Asian Alone: BA or Higher<\/th>\n      <th>Asian Alone: HS or Higher<\/th>\n      <th>Asian Alone: Total<\/th>\n      <th>NHPI Alone: BA or Higher<\/th>\n      <th>NHPI Alone: HS or Higher<\/th>\n      <th>NHPI Alone: Total<\/th>\n      <th>Total Population: BA or Higher<\/th>\n      <th>Total Population: HS or Higher<\/th>\n      <th>Total Population: Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Brt","buttons":["copy","csv","excel"],"scrollX":true,"lengthMenu":[25,50,100],"pageLength":50,"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 1, 2);\nDTWidget.formatPercentage(this, row, data, 2, 2);\nDTWidget.formatPercentage(this, row, data, 4, 2);\nDTWidget.formatPercentage(this, row, data, 5, 2);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
