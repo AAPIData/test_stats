@@ -10,7 +10,7 @@ navbar:
     - text: "National Data"
       href: national_data.html
     - text: "State Data"
-      href: national_data.html
+      href: state_data.html
 output:
   html_document:
     theme: yeti
