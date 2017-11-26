@@ -203,7 +203,7 @@ state_edu_table %>%
               buttons = c('copy', 'csv', 'excel'),
               scrollX = TRUE,
               fixedColumns = list(leftColumns = 1),
-              columnDefs = list(list(className = 'dt-center', targets = 5)),
+              columnDefs = list(list(className = 'dt-head-left', targets = 5)),
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2,3,4,5,6,7),2)
 
 
@@ -290,12 +290,13 @@ style <- "style=font-size:80%"
 #tooltip_table(x, y, title= title, style)
 
 #testing<- "Percent BA or Higher \n <table style='font-family:'Avenir Next'; font-size:2vmin'>\n  <tr>\n  <th>{point.name}:</th>\n    <td> {point.value:.1f}%</td>\n  </tr>\n  <tr>\n    <th>Asian Alone:</th>\n    <td> #{point.value2:.1f}%</td>\n  </tr>\n  <tr>\n    <th>NHPI Alone:</th>\n    <td> {point.value3:.1f}%</td>\n  </tr>\n</table>"
-
 highchart() %>%
   hc_title(text = "Bachelors Degree or Higher", align = "center") %>%
   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Alone", align = "center") %>%
   hc_chart(backgroundColor = "#ffffff") %>%
-  hc_add_series_map(usgeojson, state_edu_table, name = "Education",value = "value", joinBy = c("postalcode", "STUSAB")) %>%
+  hc_add_series_map(usgeojson, state_edu_table, name = "Education",value = "value", joinBy = c("postalcode", "STUSAB"),
+                    borderColor= "null",
+            borderWidth= 0) %>%
   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
   hc_add_theme(hc_theme_538()) %>%
   hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
@@ -305,11 +306,12 @@ highchart() %>%
 
 
 
+
 ```
 
 
 
-# Insurance {.tabset .tabset-fade .tabset-pills}
+# Health Insurance {.tabset .tabset-fade .tabset-pills}
 These tables use the 2011-2015 5YR data from the American Community Survey.
 
 ## Asian & NHPI Alone
