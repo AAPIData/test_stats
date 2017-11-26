@@ -1,0 +1,189 @@
+---
+title: ""
+author: ""
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    css: style.css
+---
+
+```{r setup, include=FALSE}
+library(forcats)
+library(DT)
+library(readxl)
+library(tidyverse)
+library(highcharter)
+library(glue)
+library(acs)
+knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
+
+## Read in County-Level Data
+
+county_pop<- readxl::read_xlsx("county_test.xlsx", sheet = "test")
+county_cvap<- readxl::read_xlsx("county_test.xlsx", sheet = "cvap")
+
+county_pop$pop_id<- as.factor(county_pop$pop_id)
+#county_cvap$pop_id<- as.factor(county_cvap$pop_id) 
+
+
+
+county_pop_long <- county_pop %>% select(-pop_group , -geo2, -geo_id) %>%
+  gather(estimate_type, estimate, -name, -pop_id) %>% select(-estimate_type)
+
+county_pop_long2 <- county_pop %>% select(-pop_group , -geo2, -name) %>%
+  gather(estimate_type, estimate, -geo_id, -pop_id) %>% select(-estimate_type)
+
+
+county_pop_long2 <- county_pop_long2 %>% mutate(fips = str_sub(geo_id, start= -5))
+data(uscountygeojson)
+
+
+
+racial_groups<- c(1,2,4,6,12,32,50,60)
+aapi_alone<- c(1,12,50)
+aapi_combo<- c(1,31,60)
+
+Asian_orign_alone <- c(13:29)
+Asian_origin_combo<- c(32:48)
+NHPI_origin_alone <- c(51,55,56)
+NHPI_origin_combo<- c(61:66)
+
+county_pop_alone <- county_pop_long  %>% filter(pop_id %in% aapi_alone )
+county_pop_alone$pop_id <- fct_recode(county_pop_alone$pop_id,
+               "State Population" = "1",
+               "Asian" = "12",
+               "NHPI" = "50")
+
+county_pop_combo <- county_pop_long  %>% filter(pop_id %in% aapi_combo )
+county_pop_combo$pop_id <- fct_recode(county_pop_combo$pop_id,
+              "State Population" = "1",
+               "Asian" = "31",
+               "NHPI" = "60")
+
+
+county_pop_combo2 <- county_pop_long2  %>% filter(pop_id %in% aapi_combo )
+county_pop_combo2$pop_id <- fct_recode(county_pop_combo2$pop_id,
+               "State Population" = "1",
+               "Asian" = "31",
+               "NHPI" = "60")
+
+county_pop_table2_combo <- county_pop_combo2 %>%
+  spread(pop_id, estimate,fill = " - ") 
+
+
+ix <- 3:5 
+county_pop_table2_combo[ix] <- lapply(county_pop_table2_combo[ix], as.numeric) 
+
+county_pop_table2_combo <- county_pop_table2_combo %>% 
+  mutate(pct_aapi = (Asian + NHPI)/`State Population`*100) %>% arrange(desc(pct_aapi)) 
+
+
+
+
+```
+
+
+
+<div class="jumbotron">
+  <h1>County Data</h1>
+  <p>Use the buttons to select the topic and then the tabs for population groups</p>
+</div>
+
+# Population {.tabset .tabset-fade .tabset-pills}
+These tables use the 2011-2015 5YR data from the American Community Survey.
+
+## Asian & NHPI Alone
+
+```{r Table1, echo=FALSE, message=FALSE, warning=FALSE}
+
+county_pop_table <- county_pop_alone %>%
+  spread(pop_id, estimate,fill = " - ") %>% 
+  rename(County= name) 
+#Reordering columns
+
+
+ix <- 2:4 
+county_pop_table[ix] <- lapply(county_pop_table[ix], as.numeric) 
+
+county_pop_table <- county_pop_table %>% 
+  mutate(pct_aapi = (Asian + NHPI)/`State Population`) %>% arrange(desc(pct_aapi)) %>% rename(`Percent AAPI` = pct_aapi)
+
+county_pop_table <- county_pop_table [c(1,5,2,3,4)]
+
+
+county_pop_table %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brt',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              columnDefs = list(list(className = 'dt-head-left')),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
+
+
+```
+
+## Asian & NHPI Combo
+
+```{r Table2, echo=FALSE, message=FALSE, warning=FALSE}
+
+county_pop_table_combo <- county_pop_combo %>%
+  spread(pop_id, estimate,fill = " - ") %>% 
+  rename(County= name) 
+#Reordering columns
+
+
+ix <- 2:4 
+county_pop_table_combo[ix] <- lapply(county_pop_table_combo[ix], as.numeric) 
+
+county_pop_table_combo <- county_pop_table_combo %>% 
+  mutate(pct_aapi = (Asian + NHPI)/`State Population`) %>% arrange(desc(pct_aapi)) %>% rename(`Percent AAPI` = pct_aapi)
+
+county_pop_table_combo <- county_pop_table_combo [c(1,5,2,3,4)]
+
+
+county_pop_table_combo %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brt',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              columnDefs = list(list(className = 'dt-head-left')),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
+
+
+```
+
+
+## Visualize Data
+```{r map, echo=FALSE, message=FALSE, warning=FALSE}
+
+x <- c("{point.name} County:", "AAPI")
+title<-"AAPI Population"
+y <- c(" {point.State Population:,.0f}", " {point.pct_aapi:.1f}%")
+
+
+highchart() %>% 
+  hc_title(text = "AAPI County Level Population", align = "center") %>%
+  hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
+  hc_chart(backgroundColor = "#ffffff") %>%
+  hc_add_series_map(uscountygeojson, county_pop_table2_combo,
+                    value = "pct_aapi", joinBy = "fips")%>%
+                   # borderColor= "null",
+                   # boarderWidth = 0) %>% 
+  hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
+  hc_add_theme(hc_theme_538()) %>%
+  hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
+  hc_mapNavigation(enabled = TRUE)
+```
+

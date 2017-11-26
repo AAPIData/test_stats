@@ -11,6 +11,8 @@ navbar:
       href: national_data.html
     - text: "State Data"
       href: state_data.html
+    - text: "County Data"
+      href: county_data.html
 output:
   html_document:
     theme: yeti

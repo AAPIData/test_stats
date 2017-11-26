@@ -78,7 +78,7 @@ aapi_alone<- c(1,12,50)
 aapi_combo<- c(1,31,60)
 
 Asian_orign_alone <- c(13:29)
-Asian_origin_combo<- c(32:48)
+Asian_origin_combo<- c(32,34,35,36,38,41,42,43,45,47,48)
 NHPI_origin_alone <- c(51,55,56)
 NHPI_origin_combo<- c(61:66)
 
@@ -148,24 +148,24 @@ state_poverty_combo$estimate_type <- fct_recode(state_poverty_combo$estimate_typ
                "Below Poverty" = "pct_below_poverty")
 
 
-# state_edu_combo_origin <- state_edu_long  %>% filter(pop_id %in% Asian_origin_combo )
-# state_edu_combo_origin$pop_id <- fct_recode(state_edu_combo_origin$pop_id,
-#                 "Asian Indian" = "32",
-#                "Cambodian" = "34",
-#                "Chinese" = "35",
-#                "Chinese (except, Taiwanese)" = "36",
-#                "Filipino" = "38",
-#                "Japanese" = "41",
-#                "Korean" = "42",
-#                "Laotian" = "43",
-#                "Pakistani" = "45",
-#                "Thai" = "47",
-#                "Vietnamese" = "48")
-# ## Recoding state_edu_alone$estimate_type
-# state_edu_combo_origin$estimate_type <- fct_recode(state_edu_combo_origin$estimate_type,
-#                "HS or Higher" = "pct_hs_higher",
-#                "BA or Higher" = "pct_ba_higher",
-#                "Total" ="total")
+state_edu_combo_origin <- state_edu_long  %>% filter(pop_id %in% Asian_origin_combo )
+state_edu_combo_origin$pop_id <- fct_recode(state_edu_combo_origin$pop_id,
+                "Asian Indian" = "32",
+               "Cambodian" = "34",
+               "Chinese" = "35",
+               "Chinese (except, Taiwanese)" = "36",
+               "Filipino" = "38",
+               "Japanese" = "41",
+               "Korean" = "42",
+               "Laotian" = "43",
+               "Pakistani" = "45",
+               "Thai" = "47",
+               "Vietnamese" = "48")
+## Recoding state_edu_alone$estimate_type
+state_edu_combo_origin$estimate_type <- fct_recode(state_edu_combo_origin$estimate_type,
+               "HS or Higher" = "pct_hs_higher",
+               "BA or Higher" = "pct_ba_higher",
+               "Total" ="total")
 
 
 
@@ -234,6 +234,38 @@ state_edu_table_combo %>%
               scrollX = TRUE,
               fixedColumns = list(leftColumns = 1),
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2,3,4,5,6,7),2)
+
+```
+
+
+
+
+
+## Asian Origin Combo
+Nationally, about **`r avg_hs_higher`%** of Americans have a HS degree or higher and about **`r avg_ba_higher`%** have a Bachelor's Degree or higher.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+state_edu_table_combo_origin <-state_edu_combo_origin %>%
+  mutate(long_key=paste(pop_id, estimate_type, sep=": ")) %>% #Combining Pop_ID and Estimate type
+  select(-pop_id, -estimate_type) %>% 
+  spread(long_key, estimate,fill = " - ") %>% 
+  rename(State= Geography) 
+
+
+ix <- 2:23
+state_edu_table_combo_origin[ix] <- lapply(state_edu_table_combo_origin[ix], as.numeric) 
+
+state_edu_table_combo_origin %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'Brt',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2:23),0)
 
 ```
 
