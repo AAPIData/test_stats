@@ -140,9 +140,10 @@ hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
 hc_add_theme(hc_theme_tufte()) %>% # hc_colors("#008fd5") %>%
   hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
          labels= list(style =list(color ="black", fontSize='12px'),
-                      format= "{value}%"), max = 100) %>%
-  hc_xAxis(title = list(text = "Group"),
-           labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
+                      format= "{value}%"), max = 100, opposite=TRUE) %>%
+  hc_xAxis(title = list(text = ""),
+           labels= list(style =list(color ="#E26069", fontSize='15px')),
+            minorTickLength= 0,tickLength=0) %>%
    hc_tooltip(pointFormat = "{point.y}%") %>%
  hc_title(text = "Educational Attainment",
            margin = 20, align = "left",
@@ -180,7 +181,7 @@ hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
 hc_add_theme(hc_theme_tufte()) %>%
   hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
          labels= list(style =list(color ="black", fontSize='12px'),
-                      format= "{value}%"), max = 100) %>%
+                      format= "{value}%"), max = 100,opposite=TRUE) %>%
   hc_xAxis(title = list(text = "Group"),
            labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
    hc_tooltip(pointFormat = "{point.y}%") %>%
@@ -219,7 +220,7 @@ hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
 hc_add_theme(hc_theme_tufte()) %>%
   hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
          labels= list(style =list(color ="black", fontSize='12px'),
-                      format= "{value}%"), max = 100) %>%
+                      format= "{value}%"), max = 100,opposite=TRUE) %>%
   hc_xAxis(title = list(text = "Group"),
            labels= list(style =list(color ="#E26069", fontSize='12px'))) %>%
    hc_tooltip(pointFormat = "{point.y}%") %>%
@@ -258,7 +259,7 @@ hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
 hc_add_theme(hc_theme_tufte()) %>%
   hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
          labels= list(style =list(color ="black", fontSize='12px'),
-                      format= "{value}%"), max = 100) %>%
+                      format= "{value}%"), max = 100,opposite=TRUE) %>%
   hc_xAxis(title = list(text = "Group"),
            labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
    hc_tooltip(pointFormat = "{point.y}%") %>%
@@ -296,7 +297,7 @@ hchart( "bar", hcaes(x = Group, y = BA_Higher)) %>%
 hc_add_theme(hc_theme_tufte()) %>%
   hc_yAxis(title = list(text = "Bachelor's Degree or Higher"),
          labels= list(style =list(color ="black", fontSize='12px'),
-                      format= "{value}%"), max = 100) %>%
+                      format= "{value}%"), max = 100,opposite=TRUE) %>%
   hc_xAxis(title = list(text = "Group"),
            labels= list(style =list(color ="#E26069", fontSize='15px'))) %>%
    hc_tooltip(pointFormat = "{point.y}%") %>%

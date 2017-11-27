@@ -168,7 +168,7 @@ county_pop_table_combo %>%
 ## Visualize Data
 ```{r map, echo=FALSE, message=FALSE, warning=FALSE}
 
-x <- c("{point.name} County:", "AAPI")
+x <- c("{point.name}:", "AAPI")
 title<-"AAPI Population"
 y <- c(" {point.State Population:,.0f}", " {point.pct_aapi:.1f}%")
 

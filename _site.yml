@@ -7,15 +7,25 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "National Data"
-      href: national_data.html
-    - text: "State Data"
-      href: state_data.html
-    - text: "County Data"
-      href: county_data.html
+    - text: "About"
+      href: about.html
+    - text: "Geography"
+      icon: fa-globe
+      menu:
+        - text: "National"
+          href: national_data.html
+        - text: "State"
+          href: state_data.html
+        - text: "County"
+          href: county_data.html
+        - text: "Congressial District"
+          href: 
+        - text: "Metro Area"
+          href: 
 output:
   html_document:
     theme: yeti
     includes:
-      in_header: 
-    css: style.css
+      in_header:
+      after_body: footer.html
+    css: 

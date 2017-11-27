@@ -1,0 +1,13 @@
+---
+title: ""
+output: 
+  html_document:
+    md_extensions: +raw_html
+    css: style.css
+---
+
+<div class="jumbotron">
+  <h1>What is QuickStats?</h1>
+  <p>QuickStats is a project of AAPI Data.</p>
+  <p><a class="btn btn-primary btn-lg" href="http://aapidata.com/" role="button">Learn more</a></p>
+</div>
