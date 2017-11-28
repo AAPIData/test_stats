@@ -28,5 +28,9 @@ output:
     includes:
       in_header:
       after_body: footer.html
+<<<<<<< Updated upstream
     css: style.css
     
+=======
+    css: style.css
+>>>>>>> Stashed changes
