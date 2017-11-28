@@ -28,4 +28,5 @@ output:
     includes:
       in_header:
       after_body: footer.html
-    css: 
+    css: style.css
+    

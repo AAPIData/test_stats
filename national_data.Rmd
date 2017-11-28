@@ -26,6 +26,24 @@ national_edu<- national_edu %>% rename(`HS/GED` = total_hsged,
                                        `BA or Higher` = total_ba_higher)
 
 
+
+national_cvap_display <- function(data,group){
+  data %>%
+    filter(group_ID ==  paste(group)) %>%
+    arrange(desc(CVAP)) %>%
+    rename(Total = total_pop)%>%
+    select(Group, CVAP,Total )%>%
+    datatable(extensions = 
+                list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+              rownames= FALSE, 
+              options = list(
+                dom = 'Brt',
+                buttons = c('copy', 'csv', 'excel'),
+                scrollX = TRUE,
+                lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+}
+
+
 ```
 
 <div class="jumbotron">
@@ -41,88 +59,106 @@ national_edu<- national_edu %>% rename(`HS/GED` = total_hsged,
 
 ## Major Racial Groups
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-national_cvap %>%
-  filter(group_ID ==  "Major Racial Groups") %>%
-  arrange(desc(CVAP)) %>%
-  rename(Total = total_pop)%>%
-  select(Group, CVAP,Total )%>%
-  datatable(extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brt',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+# national_cvap %>%
+#   filter(group_ID ==  "Major Racial Groups") %>%
+#   arrange(desc(CVAP)) %>%
+#   rename(Total = total_pop)%>%
+#   select(Group, CVAP,Total )%>%
+#   datatable(extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brt',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+
+national_cvap_display(national_cvap,"Major Racial Groups")
+
 ```
 
 
 ## Asian Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-national_cvap %>%
-  filter(group_ID ==  "Asian Detail") %>%
-  arrange(desc(CVAP)) %>%
-  rename(Total = total_pop)%>%
-  select(Group, CVAP,Total)%>%
-    datatable(colnames = c('Group-Alone' = 'Group'), extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brt',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+# national_cvap %>%
+#   filter(group_ID ==  "Asian Detail") %>%
+#   arrange(desc(CVAP)) %>%
+#   rename(Total = total_pop)%>%
+#   select(Group, CVAP,Total)%>%
+#     datatable(colnames = c('Group-Alone' = 'Group'), extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brt',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+
+national_cvap_display(national_cvap,"Asian Detail")
+
+
 ```
 
 ## Asian Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-national_cvap %>%
-  filter(group_ID ==  "Asian Detail Combo") %>%
-  arrange(desc(CVAP)) %>%
-  rename(Total = total_pop)%>%
-  select(Group, CVAP,Total)%>%
-   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brtp',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+# national_cvap %>%
+#   filter(group_ID ==  "Asian Detail Combo") %>%
+#   arrange(desc(CVAP)) %>%
+#   rename(Total = total_pop)%>%
+#   select(Group, CVAP,Total)%>%
+#    datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'rtpB',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+
+
+national_cvap_display(national_cvap,"Asian Detail Combo")
+
+
 ```
 
 ## NHPI Detailed Origin
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-national_cvap %>%
-  filter(group_ID ==  "NHPI Detail") %>%
-  arrange(desc(CVAP)) %>%
-  rename(Total = total_pop)%>%
-  select(Group, CVAP,Total)%>%
-   datatable(colnames = c('Group-Alone' = 'Group'),extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brt',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+# national_cvap %>%
+#   filter(group_ID ==  "NHPI Detail") %>%
+#   arrange(desc(CVAP)) %>%
+#   rename(Total = total_pop)%>%
+#   select(Group, CVAP,Total)%>%
+#    datatable(colnames = c('Group-Alone' = 'Group'),extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brt',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+
+national_cvap_display(national_cvap,"NHPI Detail")
+
 ```
 
 ## NHPI Detailed Origin Combo
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-national_cvap %>%
-  filter(group_ID ==  "NHPI Detail Combo") %>%
-  arrange(desc(CVAP)) %>%
-  rename(Total = total_pop)%>%
-  select(Group, CVAP,Total)%>%
-   datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brt',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+# national_cvap %>%
+#   filter(group_ID ==  "NHPI Detail Combo") %>%
+#   arrange(desc(CVAP)) %>%
+#   rename(Total = total_pop)%>%
+#   select(Group, CVAP,Total)%>%
+#    datatable(colnames = c('Group-Alone/Combo' = 'Group'),extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brt',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2,3),currency = "", interval = 3, mark = ",", digits=0)
+
+national_cvap_display(national_cvap,"NHPI Detail Combo")
+
 ```
 
 
