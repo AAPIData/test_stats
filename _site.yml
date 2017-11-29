@@ -1,36 +1,34 @@
-name: "AAPI Data 2017 Ethnic Group Profiles"
-output_dir: "."
-navbar:  
-  title: "QuickStats"
+name: AAPI Data 2017 Ethnic Group Profiles
+output_dir: .
+navbar:
+  title: QuickStats
   type: default
   left:
-    - text: "Home"
-      icon: fa-home
-      href: index.html
-    - text: "About"
-      href: about.html
-    - text: "Geography"
-      icon: fa-globe
-      menu:
-        - text: "National"
-          href: national_data.html
-        - text: "State"
-          href: state_data.html
-        - text: "County"
-          href: county_data.html
-        - text: "Congressial District"
-          href: 
-        - text: "Metro Area"
-          href: 
+  - text: Home
+    icon: fa-home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: Geography
+    icon: fa-globe
+    menu:
+    - text: National
+      href: national_data.html
+    - text: State
+      href: state_data.html
+    - text: County
+      href: county_data.html
+    - text: Congressial District
+      href: ~
+    - text: Metro Area
+      href: ~
 output:
   html_document:
     theme: yeti
     includes:
-      in_header:
+      in_header: ~
       after_body: footer.html
-<<<<<<< Updated upstream
     css: style.css
-    
-=======
-    css: style.css
->>>>>>> Stashed changes
+    lib_dir: site_libs
+    self_contained: no
+
