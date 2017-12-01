@@ -3,8 +3,6 @@ title: ""
 author: ""
 output: 
   html_document:
-    toc: true
-    toc_float: true
     css: style.css
 ---
 
@@ -34,9 +32,10 @@ county_pop$pop_id<- as.factor(county_pop$pop_id)
 county_pop_long <- county_pop %>% select(-pop_group , -geo2, -geo_id) %>%
   gather(estimate_type, estimate, -name, -pop_id) %>% select(-estimate_type)
 
+
+## Create Version 2 so I can map (can probably fig out a way to get rid of this)
 county_pop_long2 <- county_pop %>% select(-pop_group , -geo2, -name) %>%
   gather(estimate_type, estimate, -geo_id, -pop_id) %>% select(-estimate_type)
-
 
 county_pop_long2 <- county_pop_long2 %>% mutate(fips = str_sub(geo_id, start= -5))
 data(uscountygeojson)
@@ -112,33 +111,44 @@ These tables use the 2011-2015 5YR data from the American Community Survey.
 ## Asian & NHPI Alone
 
 ```{r Table1, echo=FALSE, message=FALSE, warning=FALSE}
-
-county_pop_table <- county_pop_alone %>%
-  spread(pop_id, estimate,fill = " - ") %>% 
-  rename(County= name) 
-#Reordering columns
-
-
-ix <- 2:4 
-county_pop_table[ix] <- lapply(county_pop_table[ix], as.numeric) 
-
-county_pop_table <- county_pop_table %>% rowwise() %>% 
-  mutate(pct_aapi = sum(Asian,NHPI,na.rm = TRUE)/`County Population`) %>% arrange(desc(pct_aapi)) %>% rename(`Percent AAPI` = pct_aapi)
-
-county_pop_table <- county_pop_table [c(1,5,2,3,4)]
-
-
-county_pop_table %>%
- datatable(extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brtp',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              fixedColumns = list(leftColumns = 1),
-              columnDefs = list(list(className = 'dt-head-left')),
-              lengthMenu = c(25, 50, 100), pageLength = 100)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
+# 
+# county_pop_table <- county_pop_alone %>%
+#   spread(pop_id, estimate,fill = " - ") %>% 
+#   rename(County= name) 
+# 
+# ## Case When
+# county_pop_table  <- county_pop_table %>% 
+#   mutate( check = case_when(
+#     is.na(Asian)  & is.na(NHPI) ~  T,
+#     is.na(Asian)  & !is.na(NHPI) ~ F,
+#     !is.na(Asian) & is.na(NHPI) ~ F,
+#     !is.na(Asian) & !is.na(NHPI)~ F))
+# 
+# county_pop_table  <- county_pop_table %>% rowwise  %>% mutate(
+#   aapi = case_when(
+#     check == F ~ sum(Asian,NHPI,na.rm=T)/`County Population`*100))
+# 
+# 
+# #Reordering columns
+# ix <- 2:4 
+# county_pop_table[ix] <- lapply(county_pop_table[ix], as.numeric) 
+# 
+# 
+# 
+# county_pop_table <- county_pop_table [c(1,5,2,3,4)]
+# 
+# 
+# county_pop_table %>%
+#  datatable(extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brtp',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               fixedColumns = list(leftColumns = 1),
+#               columnDefs = list(list(className = 'dt-head-left')),
+#               lengthMenu = c(25, 50, 100), pageLength = 100)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
 
 
 ```
@@ -146,75 +156,92 @@ county_pop_table %>%
 ## Asian & NHPI Combo
 
 ```{r Table2, echo=FALSE, message=FALSE, warning=FALSE}
-
-county_pop_table_combo <- county_pop_combo %>%
-  spread(pop_id, estimate,fill = " - ") %>% 
-  rename(County= name) 
-#Reordering columns
-
-
-ix <- 2:4 
-county_pop_table_combo[ix] <- lapply(county_pop_table_combo[ix], as.numeric) 
-
-county_pop_table_combo <- county_pop_table_combo %>% 
-  mutate(pct_aapi = sum(Asian,NHPI,na.rm = TRUE)/`County Population`)%>% arrange(desc(pct_aapi)) %>% rename(`Percent AAPI` = pct_aapi)
-
-county_pop_table_combo <- county_pop_table_combo [c(1,5,2,3,4)]
-
-
-county_pop_table_combo %>%
- datatable(extensions = 
-              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
-            rownames= FALSE, 
-            options = list(
-              dom = 'Brt',
-              buttons = c('copy', 'csv', 'excel'),
-              scrollX = TRUE,
-              fixedColumns = list(leftColumns = 1),
-              columnDefs = list(list(className = 'dt-head-left')),
-              lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
-
+# 
+# county_pop_table_combo <- county_pop_combo %>%
+#   spread(pop_id, estimate,fill = " - ") %>% 
+#   rename(County= name) 
+# 
+# 
+# ## Case When
+# county_pop_table_combo  <- county_pop_combo %>% 
+#   mutate( check = case_when(
+#     is.na(Asian)  & is.na(NHPI) ~  T,
+#     is.na(Asian)  & !is.na(NHPI) ~ F,
+#     !is.na(Asian) & is.na(NHPI) ~ F,
+#     !is.na(Asian) & !is.na(NHPI)~ F))
+# 
+# county_pop_table_combo  <- county_pop_table_combo %>% rowwise  %>% mutate(
+#   aapi = case_when(
+#     check == F ~ sum(Asian,NHPI,na.rm=T)/`County Population`*100))
+# 
+# 
+# 
+# 
+# #Reordering columns
+# 
+# 
+# ix <- 2:4 
+# county_pop_table_combo[ix] <- lapply(county_pop_table_combo[ix], as.numeric) 
+# 
+# county_pop_table_combo <- county_pop_table_combo %>% 
+#   mutate(pct_aapi = sum(Asian,NHPI,na.rm = TRUE)/`County Population`)%>% arrange(desc(pct_aapi)) %>% rename(`Percent AAPI` = pct_aapi)
+# 
+# county_pop_table_combo <- county_pop_table_combo [c(1,5,2,3,4)]
+# 
+# 
+# county_pop_table_combo %>%
+#  datatable(extensions = 
+#               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+#             rownames= FALSE, 
+#             options = list(
+#               dom = 'Brt',
+#               buttons = c('copy', 'csv', 'excel'),
+#               scrollX = TRUE,
+#               fixedColumns = list(leftColumns = 1),
+#               columnDefs = list(list(className = 'dt-head-left')),
+#               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatPercentage(columns=c(2),2)  %>% formatCurrency(columns = c(3,4,5),currency = "", interval = 3, mark = ",", digits=0)
+# 
 
 ```
 
 
 ## Visualize Data
 ```{r map, echo=FALSE, message=FALSE, warning=FALSE}
-
-x <- c("{point.name}:", "AAPI")
-title<-"AAPI Population"
-y <- c(" {point.County Population:,.0f}", " {point.aapi:.2f}%")
-
-library(stringr)
-county_pop_table2_combo_CA <- county_pop_table2_combo %>% filter(startsWith(fips,"06"))
-
-highchart() %>% 
-  hc_title(text = "AAPI County Level Population", align = "center") %>%
-  hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
-  hc_chart(backgroundColor = "#ffffff") %>%
-  hc_add_series_map(uscountygeojson, county_pop_table2_combo,
-                    value = "aapi", joinBy = "fips")%>%
-                   # borderColor= "null",
-                   # boarderWidth = 0) %>% 
-  hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
-  hc_add_theme(hc_theme_538()) %>%
-  hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
-  hc_mapNavigation(enabled = TRUE)
-
-cities <- geojsonio::us_cities
-
-highchart() %>% 
-  hc_title(text = "AAPI County Level Population", align = "center") %>%
-  hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
-  hc_chart(backgroundColor = "#ffffff") %>%
-  hc_add_series_map(uscountygeojson, county_pop_table2_combo_CA,
-                    value = "aapi", joinBy = "fips")%>%
-                   # borderColor= "null",
-                   # boarderWidth = 0) %>% 
-  hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
-  hc_add_theme(hc_theme_538()) %>%
-  hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
-  hc_mapNavigation(enabled = TRUE)
+# 
+# x <- c("{point.name}:", "AAPI")
+# title<-"AAPI Population"
+# y <- c(" {point.County Population:,.0f}", " {point.aapi:.2f}%")
+# 
+# library(stringr)
+# county_pop_table2_combo_CA <- county_pop_table2_combo %>% filter(startsWith(fips,"06"))
+# 
+# highchart() %>% 
+#   hc_title(text = "AAPI County Level Population", align = "center") %>%
+#   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
+#   hc_chart(backgroundColor = "#ffffff") %>%
+#   hc_add_series_map(uscountygeojson, county_pop_table2_combo,
+#                     value = "aapi", joinBy = "fips")%>%
+#                    # borderColor= "null",
+#                    # boarderWidth = 0) %>% 
+#   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
+#   hc_add_theme(hc_theme_538()) %>%
+#   hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
+#   hc_mapNavigation(enabled = TRUE)
+# 
+# cities <- geojsonio::us_cities
+# 
+# highchart() %>% 
+#   hc_title(text = "AAPI County Level Population", align = "center") %>%
+#   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
+#   hc_chart(backgroundColor = "#ffffff") %>%
+#   hc_add_series_map(uscountygeojson, county_pop_table2_combo_CA,
+#                     value = "aapi", joinBy = "fips")%>%
+#                    # borderColor= "null",
+#                    # boarderWidth = 0) %>% 
+#   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
+#   hc_add_theme(hc_theme_538()) %>%
+#   hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
+#   hc_mapNavigation(enabled = TRUE)
 
 ```
 

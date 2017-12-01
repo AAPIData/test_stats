@@ -18,7 +18,7 @@ table {
 }
 
 .jumbotron h1{
-  color:#e26069;
+  color:#E5790D;
 }
 
 .jumbotron p{
@@ -43,14 +43,15 @@ h1{
   font-size: 2vw;
   text-align: center;
   font-weight: 600;
-  color:#e26069;
+  color:#E5790D;
 }
 
 h2{
   font-size: 2vw;
 	text-align: center;
 	font-weight: 600;
-	color:#e26069;
+	color:#E5790D;
+	text-transform:uppercase;
 }
 
 /* Sticky footer styles

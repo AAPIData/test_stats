@@ -1,0 +1,120 @@
+---
+title: ''
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+
+## Loading Packages
+library(forcats)
+library(DT)
+library(readxl)
+library(tidyverse)
+library(highcharter)
+library(glue)
+library(acs)
+
+## Setting Formatting for output
+knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
+## Formatting for Graphics
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
+
+state_edu<- readxl::read_xlsx("state/state_edu.xlsx")
+
+state_edu$pop_id <- as.factor(state_edu$pop_id)
+
+state_edu <- state_edu %>% 
+  mutate(est_hsless = 
+            case_when( check_hsless == 1 ~  NA_real_ ,TRUE ~ est_hsless),
+         est_hsged  =
+          case_when( check_hsged == 1 ~  NA_real_ ,TRUE ~ est_hsged),
+         est_somecollegeaa  =
+          case_when( check_somecollegeaa == 1 ~  NA_real_ ,TRUE ~ est_somecollegeaa),
+         est_bahigher  =
+          case_when( check_bahigher == 1 ~  NA_real_ ,TRUE ~ est_bahigher))
+
+state_edu <- state_edu %>% select(-check_hsless,
+                                  -check_hsged,
+                                  -check_somecollegeaa,
+                                  -check_bahigher)
+
+## Creating Lookup for Pop_id
+aapi_alone<- c(1,12,50)
+aapi_combo<- c(1,31,60)
+
+## Long 
+state_edu_long<- state_edu %>% select(-geoid)  %>%
+  gather(estimate_type,
+         estimate,
+         -geodisplaylabel,
+         -pop_id)
+
+## Recoding state_edu_long$pop_id
+state_edu_long$pop_id_rec <- as.character(state_edu_long$pop_id)
+state_edu_long$pop_id_rec <- fct_recode(state_edu_long$pop_id_rec,
+               "State Pop" = "1",
+               "Asian Alone" = "12",
+               "Asian Como" = "31",
+               "NHPI Alone" = "50",
+               "NHPI Combo" = "60")
+
+## Recoding state_edu_long$estimate_type into state_edu_long$estimate_type_rec
+state_edu_long$estimate_type_rec <- fct_recode(state_edu_long$estimate_type,
+               "Total Pop" = "est_totpop",
+               "HS or Less" = "est_hsless",
+               "HS Diploma" = "est_hsged",
+               "Some College or AA" = "est_somecollegeaa",
+               "BA or Higher" = "est_bahigher")
+
+state_edu_alone <- state_edu_long  %>% filter(pop_id %in% aapi_alone ) %>% select(-pop_id,-estimate_type)
+state_edu_combo <- state_edu_long  %>% filter(pop_id %in% aapi_combo )%>% select(-pop_id,-estimate_type)
+
+state_create_table <- function(data){
+  data %>%
+  mutate(long_key=paste(pop_id_rec, estimate_type_rec, sep=": ")) %>% #Combining Pop_ID and Estimate type
+  select(-pop_id_rec, -estimate_type_rec) %>% 
+  spread(long_key, estimate,fill = NA) %>% 
+  rename(State= geodisplaylabel)
+}
+
+
+state_display_edu <- function(data){
+  data %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'rtB',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              columnDefs = list(list(className = 'dt-head-left')),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>%
+  formatCurrency(columns = c(2:16),currency = "", interval = 3, mark = ",", digits=0)
+}
+
+
+
+```
+
+
+<div class="jumbotron">
+  <h1>State Data</h1>
+  <p>Use the buttons to select the topic and then the tabs for population groups</p>
+</div>
+
+# Education {.tabset .tabset-fade .tabset-pills}
+These tables use the 2011-2015 5YR data from the American Community Survey.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+state_edu_table<- state_create_table(state_edu_alone)
+state_edu_table <- state_edu_table [c(1,16,15,14,13,12,2,3,4,5,7,8,9,10,11)]
+
+state_display_edu(state_edu_table)
+
+
+```
+

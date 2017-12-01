@@ -3,8 +3,6 @@ title: ""
 author: ""
 output: 
   html_document:
-    toc: true
-    toc_float: true
     css: style.css
 ---
 
@@ -16,7 +14,6 @@ library(tidyverse)
 library(highcharter)
 library(glue)
 library(acs)
-library(colorRamps)
 knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
 hcoptslang <- getOption("highcharter.lang")
 hcoptslang$thousandsSep <- ","
@@ -286,22 +283,43 @@ data(fips.state)
 fips.state <- fips.state %>% rename(State = STATE_NAME)
 state_edu_table<- state_edu_table %>% inner_join(fips.state, by = "State")
 
+# hcmap("countries/us/us-all",type ="tilemap", data = state_edu_table, value = "value",
+#       joinBy = c("hc-a2", "STUSAB"), name = "BA or Higher",
+#       dataLabels = list(enabled = TRUE, format = '{point.name}'),
+#       borderColor = "#FAFAFA", borderWidth = 0.1,
+#       tooltip = list(valueDecimals = 2, valueSuffix = "%")) %>%
+#       hc_add_theme(hc_theme_flat()) %>%
+#        hc_title(text =" State BA or Higher",
+#            margin = 20, align = "left",
+#            style = list(color = "#E26069"))%>%
+#       hc_subtitle(text = "(2011-2015 ACS)",
+#             margin = 20, align = "left",
+#            style = list(color = "#E26069"))
    
 data("usgeojson")
 
 
-### Formatting Tooltip
+# highchart() %>%
+#   hc_title(text = "Bachelors Degree or Higher", align = "center") %>%
+#   hc_subtitle(text = "Source: 2011-2015 ACS", align = "center") %>%
+#   hc_add_series_map(usgeojson, state_edu_table, name = "Educational Attainment",
+#   value = "value", joinBy = c("postalcode", "STUSAB"),
+#   tooltip = list(useHTML = TRUE,
+#                  valueDecimals = 1, valueSuffix = "%",
+#                  pointFormat = "{point.name}: {point.value} <br> Asian Alone {point.value2:.1f}% <br> NHPI Alone {point.value3:.1f}%",table = T)) %>%
+#   hc_add_theme(hc_theme_538()) %>%
+#   hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
+#    hc_legend(title = list(text= "Statewide Percentage", fontStyle ='italic'),align = "center",verticalAlign = "bottom",
+#             layout = "horizontal", padding = 5) 
+
 x <- c("{point.name}:", "Asian Alone:","NHPI Alone:")
 title<-"Percent BA or Higher"
 y <- c(" {point.value:.1f}%", " {point.value2:.1f}%",
 " {point.value3:.1f}%")
 style <- "style=font-size:80%"
+#tooltip_table(x, y, title= title, style)
 
-state_edu_table %>% filter()
-
- color_scheme <- c('#2C7BB6','#ABD9E9','#FFFFBF','#FDAE61','#D7191C')
-# library(viridis)
-RColorBrewer::brewer.pal(5,"Spectral")
+#testing<- "Percent BA or Higher \n <table style='font-family:'Avenir Next'; font-size:2vmin'>\n  <tr>\n  <th>{point.name}:</th>\n    <td> {point.value:.1f}%</td>\n  </tr>\n  <tr>\n    <th>Asian Alone:</th>\n    <td> #{point.value2:.1f}%</td>\n  </tr>\n  <tr>\n    <th>NHPI Alone:</th>\n    <td> {point.value3:.1f}%</td>\n  </tr>\n</table>"
 highchart() %>%
   hc_title(text = "Bachelors Degree or Higher", align = "center") %>%
   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Alone", align = "center") %>%
@@ -311,12 +329,13 @@ highchart() %>%
             borderWidth= 0) %>%
   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
   hc_add_theme(hc_theme_538()) %>%
-  hc_colorAxis(min = 10, max=56,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
+  hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
    hc_legend(title = list(text= "Statewide Percentage", fontStyle ='italic'),align = "center",verticalAlign = "bottom",
             layout = "horizontal", padding = 5) 
 
-# hc_colorAxis(stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
- 
+
+
+
 
 ```
 
@@ -432,7 +451,7 @@ highchart() %>%
   hc_add_series_map(usgeojson, state_ins_table, name = "Insurance",value = "value", joinBy = c("postalcode", "STUSAB")) %>%
   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
   hc_add_theme(hc_theme_538()) %>%
-  hc_colorAxis(stops = color_stops(n=5, colors = colorRamps::blue2red(5)),labels= list(format = "{value}%"),showInLegend=T) %>%
+  hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
    hc_legend(title = list(text= "Statewide Percentage", fontStyle ='italic'),align = "center",verticalAlign = "bottom",
             layout = "horizontal", padding = 5) 
 

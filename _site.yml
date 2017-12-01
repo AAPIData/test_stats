@@ -9,19 +9,14 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: Geography
+  - text: National
     icon: fa-globe
     menu:
-    - text: National
-      href: national_data.html
-    - text: State
-      href: state_data.html
-    - text: County
-      href: county_data.html
-    - text: Congressial District
-      href: ~
-    - text: Metro Area
-      href: ~
+    - text: Major Racial Groups
+      href: national_data.html#Citizen-Voting-Age-Population
+    - text: Asian Detailed Origin
+      href: national_data.html#Citizen-Voting-Age-Population
+ 
 output:
   html_document:
     theme: yeti
