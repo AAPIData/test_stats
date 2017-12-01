@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.10.12/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.12/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.12/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.12/js/buttons.print.min.js"></script>
+<link href="site_libs/dt-ext-fixedcolumns-1.10.12/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-fixedcolumns-1.10.12/js/dataTables.fixedColumns.min.js"></script>
+<link href="site_libs/dt-ext-scroller-1.10.12/css/scroller.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-scroller-1.10.12/js/dataTables.scroller.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">QuickStats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-globe"></span>
+     
+    National
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="national_data.html#Citizen-Voting-Age-Population">Major Racial Groups</a>
+    </li>
+    <li>
+      <a href="national_data.html#Citizen-Voting-Age-Population">Asian Detailed Origin</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div class="jumbotron">
+<h1>
+State Data
+</h1>
+<p>
+Use the buttons to select the topic and then the tabs for population groups
+</p>
+</div>
+<div id="education" class="section level1 tabset tabset-fade tabset-pills">
+<h1>Education</h1>
+<p>These tables use the 2011-2015 5YR data from the American Community Survey.</p>
+<div id="asian-nhpi-alone" class="section level2">
+<h2>% Asian &amp; NHPI Alone</h2>
+<p>Nationally, about <strong>todo</strong> of Americans have a HS degree or higher and about <strong>todo</strong> have a Bachelor’s Degree or higher.</p>
+<div id="htmlwidget-8fd14a4eae33c8fdfe5c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8fd14a4eae33c8fdfe5c">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],[0.235124257914625,0.27973688743433,0.274920069777296,0.2109799509971,0.314325308187258,0.381232818690651,0.375826835116156,0.300042147427264,0.545766953334273,0.27344415103798,0.288219217701596,0.308417840199906,0.258636446541735,0.323001570432612,0.241007925124291,0.266628735829612,0.310324982965163,0.222976594604252,0.225428538628262,0.289848516494416,0.3789935395633,0.404966695658398,0.269349501290085,0.337255077908237,0.206662148616369,0.271181551217827,0.294660857877784,0.292772749712029,0.230065538464641,0.348859908446784,0.368030508110078,0.26324697219375,0.34208053933541,0.283603712440376,0.276764309980129,0.260956304745707,0.241295546236415,0.307574811084608,0.286136255132678,0.318906362530025,0.258423112472963,0.270037148005858,0.24937603252576,0.275763588774638,0.311215877691886,0.359591166522007,0.363291680237742,0.328740947143646,0.191564249166871,0.27825016478967,0.257109547403922],[0.157405295072995,0.0785741968822668,0.139693311908548,0.152388420071726,0.182107326757479,0.0929561212404944,0.101450146273329,0.116258766189524,0.106685288312421,0.131238360542252,0.145948781615349,0.0897113669531377,0.10526918315631,0.120732036011348,0.121598888670851,0.0851706692483058,0.0978264939043632,0.158265927092977,0.166093812550554,0.0835505055222786,0.106366146823944,0.102180669817439,0.104237474756357,0.0756327016409615,0.176552349686786,0.115938355995361,0.0722733645401247,0.0933635017278262,0.14907731882985,0.0768085002891439,0.113839541853026,0.158324694295018,0.143654841414297,0.141935927876893,0.0826976903189966,0.10867875031276,0.130632878945642,0.102136228292594,0.10778181625103,0.138414272848755,0.144339249104441,0.0905797956224514,0.145235792582527,0.180606690918175,0.0877034854897688,0.0819521958883059,0.116581120237541,0.095646919434291,0.150490171155473,0.0897023819820666,0.0769402922929592],[0.497989646680404,0.234861181957298,0.521164021164021,0.499634573219987,0.496903492104151,0.492761617217287,0.636509335683949,0.693513489645428,0.766629650194336,0.469378507829461,0.520667536466571,0.31680001930898,0.430926701930343,0.627414560830894,0.577378588934376,0.487222985163045,0.481805658577938,0.548228176318064,0.397122666303269,null,0.62134785972254,0.574973406973619,0.627979585356962,0.430673429417968,0.366338224269037,0.564190072322751,null,0.44514319707657,0.363266721301141,0.581483137138032,0.681350180090978,0.479368514237938,0.458038000257215,0.532875232400382,null,0.627137890916184,0.409535299746225,0.465986809392913,0.53082759796627,0.444702242846094,0.427559143401727,null,0.505924537768006,0.56039438196732,0.463290894595705,null,0.592783871502689,0.476677185164654,0.602574146614438,0.465815138740326,null],[null,null,0.128281370705613,null,0.133737202176842,0.142212932319186,null,null,null,0.139026105617809,0.139355369196498,0.123389208693868,null,0.0958040310912211,null,null,null,null,0.246072381100707,null,0.0971712823226189,0.157896330730182,0.114250267530604,0.205156717435129,null,null,null,null,0.115432137678875,null,0.0790588632026059,null,0.219186016284782,0.157605145470077,null,0.121463553967159,null,0.143023332176263,0.180613684275794,null,null,null,null,0.13101446429827,null,null,0.100480325033759,0.138121915077343,null,0.168967469955326,null],[null,null,null,null,0.156721656721657,null,null,null,null,null,null,0.132554454966559,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,0.16834596246361,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>State<\/th>\n      <th>State Pop: % BA or Higher<\/th>\n      <th>State Pop: % HS or Less<\/th>\n      <th>Asian: % BA or Higher<\/th>\n      <th>Asian: % HS or Less<\/th>\n      <th>NHPI: % BA or Higher<\/th>\n      <th>NHPI: % HS or Less<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"rtB","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-head-left"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"lengthMenu":[25,50,100],"pageLength":50,"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 1, 0);\nDTWidget.formatPercentage(this, row, data, 2, 0);\nDTWidget.formatPercentage(this, row, data, 3, 0);\nDTWidget.formatPercentage(this, row, data, 4, 0);\nDTWidget.formatPercentage(this, row, data, 5, 0);\nDTWidget.formatPercentage(this, row, data, 6, 0);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="asian-nhpi-combo" class="section level2">
+<h2>% Asian &amp; NHPI Combo</h2>
+<p>Nationally, about <strong>todo</strong> of Americans have a HS degree or higher and about <strong>todo</strong> have a Bachelor’s Degree or higher.</p>
+<div id="htmlwidget-7a7433177971a760735d" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a7433177971a760735d">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],[0.235124257914625,0.27973688743433,0.274920069777296,0.2109799509971,0.314325308187258,0.381232818690651,0.375826835116156,0.300042147427264,0.545766953334273,0.27344415103798,0.288219217701596,0.308417840199906,0.258636446541735,0.323001570432612,0.241007925124291,0.266628735829612,0.310324982965163,0.222976594604252,0.225428538628262,0.289848516494416,0.3789935395633,0.404966695658398,0.269349501290085,0.337255077908237,0.206662148616369,0.271181551217827,0.294660857877784,0.292772749712029,0.230065538464641,0.348859908446784,0.368030508110078,0.26324697219375,0.34208053933541,0.283603712440376,0.276764309980129,0.260956304745707,0.241295546236415,0.307574811084608,0.286136255132678,0.318906362530025,0.258423112472963,0.270037148005858,0.24937603252576,0.275763588774638,0.311215877691886,0.359591166522007,0.363291680237742,0.328740947143646,0.191564249166871,0.27825016478967,0.257109547403922],[0.157405295072995,0.0785741968822668,0.139693311908548,0.152388420071726,0.182107326757479,0.0929561212404944,0.101450146273329,0.116258766189524,0.106685288312421,0.131238360542252,0.145948781615349,0.0897113669531377,0.10526918315631,0.120732036011348,0.121598888670851,0.0851706692483058,0.0978264939043632,0.158265927092977,0.166093812550554,0.0835505055222786,0.106366146823944,0.102180669817439,0.104237474756357,0.0756327016409615,0.176552349686786,0.115938355995361,0.0722733645401247,0.0933635017278262,0.14907731882985,0.0768085002891439,0.113839541853026,0.158324694295018,0.143654841414297,0.141935927876893,0.0826976903189966,0.10867875031276,0.130632878945642,0.102136228292594,0.10778181625103,0.138414272848755,0.144339249104441,0.0905797956224514,0.145235792582527,0.180606690918175,0.0877034854897688,0.0819521958883059,0.116581120237541,0.095646919434291,0.150490171155473,0.0897023819820666,0.0769402922929592],[0.489619936620174,0.24315153779106,0.50275055602973,0.492408174258492,0.491386633083331,0.487541816129942,0.626618074456798,0.675972858077175,0.778053146082886,0.456274636278936,0.515179752660339,0.29376279260169,0.408391153512576,0.620320844446208,0.564504822451594,0.475610943432967,0.473559411344048,0.528257765962684,0.389358166585889,null,0.615868962014882,0.577028252429936,0.604930039639829,0.433501672373448,0.371368223421732,0.544700815450111,null,0.444186220856136,0.353744556214965,0.570635545065128,0.67163527387038,0.453129570049722,0.459101392833412,0.523705374047009,null,0.607107770900874,0.402050256282035,0.458852534960231,0.526054299350599,0.452760472610097,0.420841528790158,null,0.496013601411662,0.550929315582972,0.453223470865371,null,0.582722465981084,0.46732590444635,0.576709796672828,0.465671029698233,null],[null,null,0.120999545208176,null,0.130222144702002,0.125702309459514,null,null,null,0.13303710074297,0.133624772313297,0.110877898105765,null,0.0941543319848204,null,null,null,null,0.231617392508482,null,0.0928688663344839,0.152639632746748,0.115837555456383,0.195608201901085,null,0.139966984820464,null,null,0.110323720093463,null,0.0810413436560284,null,0.214363108172709,0.150025714495629,null,0.117073140780037,0.162306002536031,0.132554432745232,0.174392386425874,null,null,null,0.140354718633676,0.12763403379639,null,null,0.0979231392142438,0.128621465573441,null,0.159427223949968,null],[null,null,null,null,0.220646773396868,null,null,null,null,null,null,0.156130769426169,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.263161830690996,null,null,null,0.168650246799128,null,null,null],[null,null,null,null,0.139570561059941,null,null,null,null,null,null,0.0974064571849519,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>State<\/th>\n      <th>State Pop: % BA or Higher<\/th>\n      <th>State Pop: % HS or Less<\/th>\n      <th>Asian: % BA or Higher<\/th>\n      <th>Asian: % HS or Less<\/th>\n      <th>NHPI: % BA or Higher<\/th>\n      <th>NHPI: % HS or Less<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"rtB","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-head-left"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"lengthMenu":[25,50,100],"pageLength":50,"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 1, 0);\nDTWidget.formatPercentage(this, row, data, 2, 0);\nDTWidget.formatPercentage(this, row, data, 3, 0);\nDTWidget.formatPercentage(this, row, data, 4, 0);\nDTWidget.formatPercentage(this, row, data, 5, 0);\nDTWidget.formatPercentage(this, row, data, 6, 0);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="raw-asian-nhpi-alone" class="section level2">
+<h2>Raw Asian &amp; NHPI Alone</h2>
+<p>Nationally, about <strong>todo</strong> of Americans have a HS degree or higher and about <strong>todo</strong> have a Bachelor’s Degree or higher.</p>
+<div id="htmlwidget-01344723144be0db70f3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-01344723144be0db70f3">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],[3239351,464440,4361304,1962741,25257858,3520177,2462855,631118,453952,13824205,6500205,962052,1030748,8600178,4316273,2049344,1869698,2955216,3040041,952777,4018459,4610510,6652665,3632992,1940365,4052300,690448,1215400,1884237,925145,6091495,1367822,13435795,6582301,468030,7817508,2512392,2714972,8814112,720641,3210007,551039,4380036,16765143,1674198,436657,5566373,4721438,1298118,3873119,384272],[962515,168702,1489284,564266,7487209,1083623,613418,172147,76073,4155539,1832100,310695,372417,2475681,1256861,668138,600995,834709,818641,280455,1041461,1102927,2178934,1186288,609203,1216654,229073,411641,637727,264897,1414624,429863,3320660,2025276,171543,2258567,781821,943499,2134085,194089,961479,179803,1206156,4893713,618202,112584,1513471,1619878,325536,1208472,143034],[509891,36493,609245,299099,4599641,327222,249857,73373,48430,1814266,948697,86307,108506,1038317,524854,174544,182906,467710,504932,79605,427428,471105,693457,274773,342576,469817,49901,113474,280897,71059,693453,216560,1930117,934265,38705,849597,328201,277297,950001,99747,463330,49913,636138,3027897,146833,35785,648934,451591,195354,347428,29566],[1005295,129324,1063765,685277,5231824,767325,673973,196236,81697,4074252,1845924,268336,283236,2308309,1494302,660248,505583,993853,1031156,316556,1026600,1169375,1988382,946686,587586,1266920,208026,334449,532115,266443,1741562,361324,3588894,1755995,128248,2669316,796141,659119,3207989,196988,955658,172522,1445466,4220317,388126,131270,1381751,1097839,528555,1239523,112872],[761650,129921,1199010,414099,7939184,1342007,925607,189362,247752,3780148,1873484,296714,266589,2777871,1040256,546414,580214,658944,685312,276161,1522970,1867103,1791892,1225245,401000,1098909,203448,355836,433498,322746,2241856,360075,4596124,1866765,129534,2040028,606229,835057,2522037,229817,829540,148801,1092276,4623216,521037,157018,2022217,1552130,248673,1077696,98800],[19817,6446,71511,12989,1870063,50921,63544,15706,13807,168850,124111,131255,6273,279692,42170,18094,22734,19029,20399,null,155012,151889,106803,60032,6841,38849,null,10476,57625,11707,379850,9747,502175,84838,null,90020,19688,49670,136979,9200,19067,null,34286,422418,19177,null,200176,178855,5384,37016,null],[7363,7675,18839,4613,541718,17081,11992,2179,null,65783,40886,110336,2884,50019,10645,6213,8029,4989,9836,1605,31507,39641,18262,22311,4372,9742,null,3875,33632,2848,62967,3345,191509,23518,null,18133,10243,16230,39510,3551,8659,null,11782,102666,7491,null,45729,61283,null,13897,null],[null,null,17602,null,503311,14696,null,null,null,50012,33218,51122,null,42708,null,null,null,null,12640,null,24242,41711,19431,28597,null,null,null,null,18311,null,44075,null,240307,25092,null,17435,null,15245,46607,null,null,null,null,98757,null,null,33931,51825,null,13427,null],[7172,7859,29262,4709,848341,20640,13386,null,null,75086,40154,121602,null,73366,10549,6710,8091,5537,8492,null,38716,30926,25578,28451,null,10326,null,null,49062,null,70604,4492,162370,25760,null,17953,9664,25446,34952,null,9295,null,11837,129946,8649,null,57852,83249,null,15125,null],[null,null,null,null,15181,null,null,null,null,null,null,10960,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,2017,2757,null,28939,1267,null,null,null,2120,null,36457,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,4367,null,null,null,null,null,null,null,1051,3235,null,null,null,null,null,4133,4841,null,null,10378,null,null,null],[null,null,null,null,16307,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,36439,null,null,null,null,null,null,25341,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,4716,null,null,8908,null,null,null],[1496,4289,7287,3358,96866,4504,602,null,null,6802,2696,82683,974,2243,1197,1127,1036,1034,1103,null,1741,956,1295,1108,null,3454,534,791,11365,null,1724,715,4199,3783,null,1973,2531,8722,2332,null,1236,null,1967,12986,12834,null,3428,25185,null,774,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>State<\/th>\n      <th>State Pop: Total Pop<\/th>\n      <th>State Pop: Some College or AA<\/th>\n      <th>State Pop: HS or Less<\/th>\n      <th>State Pop: HS Diploma<\/th>\n      <th>State Pop: BA or Higher<\/th>\n      <th>Asian: BA or Higher<\/th>\n      <th>Asian: HS Diploma<\/th>\n      <th>Asian: HS or Less<\/th>\n      <th>Asian: Some College or AA<\/th>\n      <th>NHPI: BA or Higher<\/th>\n      <th>NHPI: HS Diploma<\/th>\n      <th>NHPI: HS or Less<\/th>\n      <th>NHPI: Some College or AA<\/th>\n      <th>NHPI: Total Pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"rtB","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-head-left"},{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}],"lengthMenu":[25,50,100],"pageLength":50,"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 6, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 7, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 8, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 9, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 10, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 11, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 12, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 13, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 14, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 15, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="raw-asian-nhpi-combo" class="section level2">
+<h2>Raw Asian &amp; NHPI Combo</h2>
+<p>Nationally, about <strong>todo</strong> of Americans have a HS degree or higher and about <strong>todo</strong> have a Bachelor’s Degree or higher.</p>
+<div id="htmlwidget-0151ad41eb912cdf4fa2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0151ad41eb912cdf4fa2">{"x":{"filter":"none","extensions":["Buttons","FixedColumns","Scroller"],"data":[["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],[3239351,464440,4361304,1962741,25257858,3520177,2462855,631118,453952,13824205,6500205,962052,1030748,8600178,4316273,2049344,1869698,2955216,3040041,952777,4018459,4610510,6652665,3632992,1940365,4052300,690448,1215400,1884237,925145,6091495,1367822,13435795,6582301,468030,7817508,2512392,2714972,8814112,720641,3210007,551039,4380036,16765143,1674198,436657,5566373,4721438,1298118,3873119,384272],[962515,168702,1489284,564266,7487209,1083623,613418,172147,76073,4155539,1832100,310695,372417,2475681,1256861,668138,600995,834709,818641,280455,1041461,1102927,2178934,1186288,609203,1216654,229073,411641,637727,264897,1414624,429863,3320660,2025276,171543,2258567,781821,943499,2134085,194089,961479,179803,1206156,4893713,618202,112584,1513471,1619878,325536,1208472,143034],[509891,36493,609245,299099,4599641,327222,249857,73373,48430,1814266,948697,86307,108506,1038317,524854,174544,182906,467710,504932,79605,427428,471105,693457,274773,342576,469817,49901,113474,280897,71059,693453,216560,1930117,934265,38705,849597,328201,277297,950001,99747,463330,49913,636138,3027897,146833,35785,648934,451591,195354,347428,29566],[1005295,129324,1063765,685277,5231824,767325,673973,196236,81697,4074252,1845924,268336,283236,2308309,1494302,660248,505583,993853,1031156,316556,1026600,1169375,1988382,946686,587586,1266920,208026,334449,532115,266443,1741562,361324,3588894,1755995,128248,2669316,796141,659119,3207989,196988,955658,172522,1445466,4220317,388126,131270,1381751,1097839,528555,1239523,112872],[761650,129921,1199010,414099,7939184,1342007,925607,189362,247752,3780148,1873484,296714,266589,2777871,1040256,546414,580214,658944,685312,276161,1522970,1867103,1791892,1225245,401000,1098909,203448,355836,433498,322746,2241856,360075,4596124,1866765,129534,2040028,606229,835057,2522037,229817,829540,148801,1092276,4623216,521037,157018,2022217,1552130,248673,1077696,98800],[22712,7811,80698,14626,1994615,60482,67916,16537,16953,190992,134346,157874,7534,297009,46706,19540,25164,21461,22494,null,167355,162902,115218,65581,7912,43886,null,11850,64494,13055,393767,12394,536847,92666,null,98876,22512,58439,147917,10538,21824,null,38510,452984,22222,null,220198,200001,6240,40878,null],[8501,8943,22550,5303,589555,20246,13666,2519,null,77196,44842,154808,3789,54487,12597,7158,9087,5835,11391,2086,34487,42216,21741,24079,4818,11725,1565,4348,39724,3426,67527,4841,204856,26188,null,21356,11791,19647,43574,3985,10096,1030,13451,113279,9004,null,51801,69857,null,15357,null],[null,null,19422,null,528592,15594,null,null,null,55688,34846,59588,null,45081,null,null,null,null,13381,null,25236,43092,22063,29592,null,11277,null,null,20114,null,47513,null,250664,26546,null,19067,9088,16882,49036,null,null,null,10897,104943,null,null,37003,55046,null,13995,null],[9118,9704,37843,5775,946394,27733,15101,null,null,94714,46741,165150,null,82222,13174,7948,10089,7670,10506,null,44660,34102,31443,32030,null,13681,null,4760,57986,null,77474,6676,176976,31543,null,23565,12602,32391,40655,null,11606,null,14781,151012,11198,null,68876,103065,null,17553,null],[null,null,null,null,37970,null,null,null,null,null,null,30732,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,7038,null,null,null,6731,null,null,null],[null,2607,4095,null,46148,2102,null,null,null,5659,null,83152,null,1755,null,null,null,null,null,null,null,null,null,null,null,1756,null,null,7317,null,1677,null,4171,1939,null,null,1602,4402,1938,null,null,null,null,6893,5731,null,1803,13837,null,null,null],[null,null,null,null,24018,null,null,null,null,null,null,19173,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,5347,null,63949,null,null,null,null,7413,null,63778,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,7828,null,null,null,4245,null,null,null,null,5749,null,null,null,null,null,10244,6522,null,null,15028,null,null,null],[2793,5872,13838,4573,172085,9032,2688,637,881,20620,6590,196835,1961,7521,3145,1947,2393,2056,2507,468,5453,5230,5100,3550,1234,6248,1008,1676,21071,567,7239,2091,17245,7487,424,5619,4281,15190,7856,1035,2685,520,4317,26744,17172,318,8959,39911,935,2932,497]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>State<\/th>\n      <th>State Pop: Total Pop<\/th>\n      <th>State Pop: Some College or AA<\/th>\n      <th>State Pop: HS or Less<\/th>\n      <th>State Pop: HS Diploma<\/th>\n      <th>State Pop: BA or Higher<\/th>\n      <th>Asian: BA or Higher<\/th>\n      <th>Asian: HS Diploma<\/th>\n      <th>Asian: HS or Less<\/th>\n      <th>Asian: Some College or AA<\/th>\n      <th>NHPI: BA or Higher<\/th>\n      <th>NHPI: HS Diploma<\/th>\n      <th>NHPI: HS or Less<\/th>\n      <th>NHPI: Some College or AA<\/th>\n      <th>NHPI: Total Pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"rtB","buttons":["copy","csv","excel"],"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-head-left"},{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}],"lengthMenu":[25,50,100],"pageLength":50,"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatCurrency(this, row, data, 1, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 2, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 3, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 4, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 5, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 6, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 7, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 8, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 9, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 10, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 11, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 12, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 13, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 14, '', 0, 3, ',', '.', true);\nDTWidget.formatCurrency(this, row, data, 15, '', 0, 3, ',', '.', true);\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+ <footer class="footer">
+      <div class="container">
+        <span class="text-muted">A Project of <a href="http://aapidata.com/">AAPI Data.</span>
+      </div>
+ </footer>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
