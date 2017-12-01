@@ -5,7 +5,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 
-
 ## Loading Packages
 library(forcats)
 library(DT)
@@ -22,8 +21,8 @@ hcoptslang <- getOption("highcharter.lang")
 hcoptslang$thousandsSep <- ","
 options(highcharter.lang = hcoptslang)
 
+#Read in files
 state_edu<- readxl::read_xlsx("state/state_edu.xlsx")
-
 state_edu$pop_id <- as.factor(state_edu$pop_id)
 
 state_edu <- state_edu %>% 
