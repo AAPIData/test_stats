@@ -13,6 +13,7 @@ library(tidyverse)
 library(highcharter)
 library(glue)
 library(acs)
+library(stringr)
 
 ## Setting Formatting for output
 knitr::knit_hooks$set(inline = function(x) { if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",", digits=6) } })
@@ -22,9 +23,10 @@ hcoptslang$thousandsSep <- ","
 options(highcharter.lang = hcoptslang)
 
 #Read in files
-state_edu<- readxl::read_xlsx("state/state_edu.xlsx")
+state_edu<- readxl::read_xlsx("raw_data/state/state_edu.xlsx")
 state_edu$pop_id <- as.factor(state_edu$pop_id)
 
+### Getting Rid of Estimates where the "CHECK" variable is flagging uncertainty
 state_edu <- state_edu %>% 
   mutate(est_hsless = 
             case_when( check_hsless == 1 ~  NA_real_ ,TRUE ~ est_hsless),
@@ -35,16 +37,22 @@ state_edu <- state_edu %>%
          est_bahigher  =
           case_when( check_bahigher == 1 ~  NA_real_ ,TRUE ~ est_bahigher))
 
+# Dropping those indicators
 state_edu <- state_edu %>% select(-check_hsless,
                                   -check_hsged,
                                   -check_somecollegeaa,
                                   -check_bahigher)
 
+state_edu <- state_edu %>% mutate(
+  pct_hsless   = est_hsless/est_totpop,
+  pct_bahigher = est_bahigher/ est_totpop)
+
+
 ## Creating Lookup for Pop_id
 aapi_alone<- c(1,12,50)
 aapi_combo<- c(1,31,60)
 
-## Long 
+## Converting it to LONG format
 state_edu_long<- state_edu %>% select(-geoid)  %>%
   gather(estimate_type,
          estimate,
@@ -55,10 +63,10 @@ state_edu_long<- state_edu %>% select(-geoid)  %>%
 state_edu_long$pop_id_rec <- as.character(state_edu_long$pop_id)
 state_edu_long$pop_id_rec <- fct_recode(state_edu_long$pop_id_rec,
                "State Pop" = "1",
-               "Asian Alone" = "12",
-               "Asian Como" = "31",
-               "NHPI Alone" = "50",
-               "NHPI Combo" = "60")
+               "Asian" = "12",
+               "Asian" = "31",
+               "NHPI" = "50",
+               "NHPI" = "60")
 
 ## Recoding state_edu_long$estimate_type into state_edu_long$estimate_type_rec
 state_edu_long$estimate_type_rec <- fct_recode(state_edu_long$estimate_type,
@@ -66,12 +74,37 @@ state_edu_long$estimate_type_rec <- fct_recode(state_edu_long$estimate_type,
                "HS or Less" = "est_hsless",
                "HS Diploma" = "est_hsged",
                "Some College or AA" = "est_somecollegeaa",
-               "BA or Higher" = "est_bahigher")
+               "BA or Higher" = "est_bahigher",
+               "% HS or Less"= "pct_hsless",
+               "% BA or Higher" = "pct_bahigher")
 
-state_edu_alone <- state_edu_long  %>% filter(pop_id %in% aapi_alone ) %>% select(-pop_id,-estimate_type)
-state_edu_combo <- state_edu_long  %>% filter(pop_id %in% aapi_combo )%>% select(-pop_id,-estimate_type)
+state_edu_alone_raw <- state_edu_long  %>%
+  filter(pop_id %in% aapi_alone) %>% 
+  select(-pop_id,-estimate_type) %>% 
+  filter(estimate_type_rec !="% BA or Higher") %>%
+  filter(estimate_type_rec !="% HS or Less")
 
-state_create_table <- function(data){
+state_edu_combo_raw <- state_edu_long  %>%
+  filter(pop_id %in% aapi_combo )%>%
+  select(-pop_id,-estimate_type)%>% 
+  filter(estimate_type_rec !="% BA or Higher") %>%
+  filter(estimate_type_rec !="% HS or Less")
+
+state_edu_alone_pct <- state_edu_long  %>%
+  filter(pop_id %in% aapi_alone) %>% 
+  select(-pop_id,-estimate_type) %>% 
+  filter(estimate_type_rec !="% BA or Higher") %>%
+  filter(estimate_type_rec !="% HS or Less")
+
+state_edu_combo_pct <- state_edu_long  %>%
+  filter(pop_id %in% aapi_combo )%>%
+  select(-pop_id,-estimate_type)%>% 
+  filter(estimate_type_rec =="% BA or Higher") %>%
+  filter(estimate_type_rec =="% HS or Less")
+
+
+# Table for Just raw counts 
+state_create_table_raw <- function(data){
   data %>%
   mutate(long_key=paste(pop_id_rec, estimate_type_rec, sep=": ")) %>% #Combining Pop_ID and Estimate type
   select(-pop_id_rec, -estimate_type_rec) %>% 
@@ -95,6 +128,10 @@ state_display_edu <- function(data){
   formatCurrency(columns = c(2:16),currency = "", interval = 3, mark = ",", digits=0)
 }
 
+# ## Calculating Average for the sentence
+# avg_hs_higher <- state_edu %>% filter(pop_id == 1) %>% select(Geography, pct_hs_higher) %>%  summarize(mean = mean(pct_hs_higher)) %>% pull() %>% round(.,4)
+# avg_hs_higher <- avg_hs_higher*100
+
 
 
 ```
@@ -108,10 +145,17 @@ state_display_edu <- function(data){
 # Education {.tabset .tabset-fade .tabset-pills}
 These tables use the 2011-2015 5YR data from the American Community Survey.
 
+## Asian & NHPI Alone
+Nationally, about **todo** of Americans have a HS degree or higher and about **todo** have a Bachelor's Degree or higher.
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+## Using the function I created above to spread the data into the right format
 state_edu_table<- state_create_table(state_edu_alone)
+
+## Reordering columns (WE should be able to automate this, I got an error when I tried to include it in the function, not sure what the issue is though)
 state_edu_table <- state_edu_table [c(1,16,15,14,13,12,2,3,4,5,7,8,9,10,11)]
 
+## Passing the created table to the Display Table Function Created Above
 state_display_edu(state_edu_table)
 
 
