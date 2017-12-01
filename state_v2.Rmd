@@ -93,18 +93,17 @@ state_edu_combo_raw <- state_edu_long  %>%
 state_edu_alone_pct <- state_edu_long  %>%
   filter(pop_id %in% aapi_alone) %>% 
   select(-pop_id,-estimate_type) %>% 
-  filter(estimate_type_rec !="% BA or Higher") %>%
-  filter(estimate_type_rec !="% HS or Less")
+  filter(estimate_type_rec =="% BA or Higher" | estimate_type_rec =="% HS or Less") 
+
 
 state_edu_combo_pct <- state_edu_long  %>%
   filter(pop_id %in% aapi_combo )%>%
   select(-pop_id,-estimate_type)%>% 
-  filter(estimate_type_rec =="% BA or Higher") %>%
-  filter(estimate_type_rec =="% HS or Less")
+  filter(estimate_type_rec =="% BA or Higher" | estimate_type_rec =="% HS or Less")
 
-
+  
 # Table for Just raw counts 
-state_create_table_raw <- function(data){
+state_create_table <- function(data){
   data %>%
   mutate(long_key=paste(pop_id_rec, estimate_type_rec, sep=": ")) %>% #Combining Pop_ID and Estimate type
   select(-pop_id_rec, -estimate_type_rec) %>% 
@@ -113,7 +112,9 @@ state_create_table_raw <- function(data){
 }
 
 
-state_display_edu <- function(data){
+
+
+state_display_edu_raw <- function(data){
   data %>%
  datatable(extensions = 
               list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
@@ -126,6 +127,21 @@ state_display_edu <- function(data){
               columnDefs = list(list(className = 'dt-head-left')),
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>%
   formatCurrency(columns = c(2:16),currency = "", interval = 3, mark = ",", digits=0)
+}
+
+state_display_edu_pct <- function(data){
+  data %>%
+ datatable(extensions = 
+              list("Buttons" = NULL, 'FixedColumns'= T, "Scroller"=T),
+            rownames= FALSE, 
+            options = list(
+              dom = 'rtB',
+              buttons = c('copy', 'csv', 'excel'),
+              scrollX = TRUE,
+              fixedColumns = list(leftColumns = 1),
+              columnDefs = list(list(className = 'dt-head-left')),
+              lengthMenu = c(25, 50, 100), pageLength = 50)) %>%
+    formatPercentage(columns =(2:7),0)
 }
 
 # ## Calculating Average for the sentence
@@ -158,6 +174,37 @@ state_edu_table <- state_edu_table [c(1,16,15,14,13,12,2,3,4,5,7,8,9,10,11)]
 ## Passing the created table to the Display Table Function Created Above
 state_display_edu(state_edu_table)
 
+```
+
+
+## Asian & NHPI Combo
+Nationally, about **todo** of Americans have a HS degree or higher and about **todo** have a Bachelor's Degree or higher.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+## Using the function I created above to spread the data into the right format
+state_edu_table<- state_create_table(state_edu_combo)
+
+## Reordering columns (WE should be able to automate this, I got an error when I tried to include it in the function, not sure what the issue is though)
+state_edu_table <- state_edu_table [c(1,16,15,14,13,12,2,3,4,5,7,8,9,10,11)]
+
+## Passing the created table to the Display Table Function Created Above
+state_display_edu_pct(state_edu_table)
+
 
 ```
 
+## Percent
+Nationally, about **todo** of Americans have a HS degree or higher and about **todo** have a Bachelor's Degree or higher.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+## Using the function I created above to spread the data into the right format
+state_edu_table_pct<- state_create_table(state_edu_alone_pct)
+
+## Reordering columns (WE should be able to automate this, I got an error when I tried to include it in the function, not sure what the issue is though)
+state_edu_table_pct <- state_edu_table_pct [c(1,6,7,2,3,4,5)]
+
+## Passing the created table to the Display Table Function Created Above
+state_display_edu_pct(state_edu_table_pct)
+
+
+```
