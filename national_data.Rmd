@@ -178,7 +178,7 @@ national_cvap_display <- function(data,group){
 > Citizen Voting Age Population (CVAP) data is complied using Table [B05003](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/15_5YR/B05003) from the 2015 ACS 5-Year estimates.
 
 ## Major Racial Groups
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r cvap major groups, echo=FALSE, message=FALSE, warning=FALSE}
 
 national_cvap_display(national_cvap,"Major racial groups")
 
@@ -186,7 +186,7 @@ national_cvap_display(national_cvap,"Major racial groups")
 
 
 ## Asian Detailed Origin
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r cvap asian alone, echo=FALSE, message=FALSE, warning=FALSE}
 
 national_cvap_display(national_cvap,"Asian Detail")
 
@@ -194,7 +194,7 @@ national_cvap_display(national_cvap,"Asian Detail")
 ```
 
 ## Asian Detailed Origin Combo
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r cvap asian combo, echo=FALSE, message=FALSE, warning=FALSE}
 
 national_cvap_display(national_cvap,"Asian Detail Combo")
 
@@ -202,14 +202,14 @@ national_cvap_display(national_cvap,"Asian Detail Combo")
 ```
 
 ## NHPI Detailed Origin
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r cvap nhpi alone, echo=FALSE, message=FALSE, warning=FALSE}
 
 national_cvap_display(national_cvap,"NHPI Detail")
 
 ```
 
 ## NHPI Detailed Origin Combo
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r cvap nhpi combo, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 national_cvap_display(national_cvap,"NHPI Detail Combo")
@@ -217,10 +217,14 @@ national_cvap_display(national_cvap,"NHPI Detail Combo")
 ```
 
 
+
 # Education {.tabset .tabset-fade .tabset-pills}
+
+> Educational Attainment data is complied using Table [B15002](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/15_5YR/B15002) from the 2015 ACS 5-Year estimates.
+
 According to the latest national estimates, about **1 in 2** Asian Americans have a Bachelor's Degree or higher compared to about **1 in 3** Americans and **1 in 5** NHPIs.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu graph major groups, echo=FALSE, message=FALSE, warning=FALSE}
 
 national_edu %>% 
   filter(group_id ==  "Major racial groups") %>%
@@ -233,10 +237,10 @@ national_edu %>%
 hchart( "bar", hcaes(x = group_name_rec , y = estimate, group = estimate_type)) %>%
 hc_add_theme(hc_theme_tufte2()) %>%  hc_colors(colors = c("#E26069","#008fd5")) %>%
   hc_yAxis(title = list(text = ""),
-         labels= list(style =list(color ="black", fontSize='12px'),
+         labels= list(style =list(color ="black", fontSize='18px'),
                       format= "{value}%"), max = 100, opposite=TRUE) %>%
   hc_xAxis(title = list(text = ""),
-           labels= list(style =list(color ="#E5790D", fontSize='15px')),
+           labels= list(style =list(color ="#E5790D", fontSize='20px')),
             minorTickLength= 0,tickLength=0) %>%
    hc_tooltip(pointFormat = "{series.name}: {point.y}%") %>%
  hc_title(text = "Educational Attainment",
@@ -249,7 +253,7 @@ hc_add_theme(hc_theme_tufte2()) %>%  hc_colors(colors = c("#E26069","#008fd5")) 
 
 
 ## Major Racial Groups
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu major groups, echo=FALSE, message=FALSE, warning=FALSE}
 national_edu %>%
   filter(group_id ==  "Major racial groups") %>% select(education_columns) %>%
   arrange(desc(est_totpop)) %>%
@@ -273,7 +277,7 @@ national_edu %>%
 
 
 ## Asian Detailed Origin
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu asian alone, echo=FALSE, message=FALSE, warning=FALSE}
 
 # national_edu %>% 
 #   filter(group_id ==  "Asian Detail") %>%
@@ -320,7 +324,7 @@ national_edu %>%
 ```
 
 ## Asian Detailed Origin Combo
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu asian combo, echo=FALSE, message=FALSE, warning=FALSE}
 # national_edu %>%
 #   filter(group_ID ==  "Asian Detail Combo") %>%
 #   rename(Total = total_pop)%>%
@@ -363,7 +367,7 @@ national_edu %>%
 ```
 
 ## NHPI Detailed Origin
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu nhpi alone, echo=FALSE, message=FALSE, warning=FALSE}
 # national_edu %>%
 #   filter(group_ID ==  "NHPI Detail") %>%
 #   rename(Total = total_pop)%>%
@@ -405,7 +409,7 @@ national_edu %>%
 ```
 
 ## NHPI Detailed Origin Combo
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r edu nhpi combo,echo=FALSE, message=FALSE, warning=FALSE}
 # national_edu %>%
 #   filter(group_ID ==  "NHPI Detail Combo") %>%
 #   rename(Total = total_pop)%>%
@@ -446,3 +450,11 @@ national_edu %>%
               lengthMenu = c(25, 50, 100), pageLength = 50)) %>% formatCurrency(columns = c(2:6),currency = "", interval = 3, mark = ",", digits=0)
 ```
 
+
+
+# Limited English Proficiency {.tabset .tabset-fade .tabset-pills}
+
+
+> Educational Attainment data is complied using Table [B15002](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/15_5YR/B15002) from the 2015 ACS 5-Year estimates.
+
+According to the latest national estimates, about **1 in 2** Asian Americans have a Bachelor's Degree or higher compared to about **1 in 3** Americans and **1 in 5** NHPIs.
