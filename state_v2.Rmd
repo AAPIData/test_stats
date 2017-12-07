@@ -240,3 +240,41 @@ state_display_edu_raw(state_edu_table_combo)
 ## Visualize Data
 
 Bachelor's Degree or Higher by State population
+
+
+```{r edu visualize, echo=FALSE, message=FALSE, warning=FALSE}
+mapdata <- get_data_from_map(download_map_data("countries/us/us-all"))
+
+state_edu_table_pct <- state_edu_table_pct %>% mutate(value = `State Pop: % BA or Higher`*100, na.omit=T)
+state_edu_table_pct <- state_edu_table_pct %>% mutate(value2 = `Asian: % BA or Higher`*100, na.omit=T)
+state_edu_table_pct <- state_edu_table_pct %>% mutate(value3 = `NHPI: % BA or Higher`*100, na.omit=T)
+
+data(fips.state)
+fips.state <- fips.state %>% rename(State = STATE_NAME)
+state_edu_table_pct<- state_edu_table_pct %>% inner_join(fips.state, by = "State")
+
+
+
+x <- c("{point.name}:", "Asian Alone:","NHPI Alone:")
+title<-"Percent BA or Higher"
+y <- c(" {point.value:.1f}%", " {point.value2:.1f}%",
+" {point.value3:.1f}%")
+style <- "style=font-size:80%"
+
+
+highchart() %>%
+  hc_title(text = "Bachelors Degree or Higher", align = "center") %>%
+  hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Alone", align = "center") %>%
+  hc_chart(backgroundColor = "#ffffff") %>%
+  hc_add_series_map(usgeojson, state_edu_table_pct, name = "Education",value = "value", joinBy = c("postalcode", "STUSAB"),
+                    borderColor= "null",
+            borderWidth= 0) %>%
+  hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
+  hc_add_theme(hc_theme_538()) %>%
+  hc_colorAxis(stops = color_stops(),labels= list(format = "{value}%"),showInLegend=T) %>%
+   hc_legend(title = list(text= "Statewide Percentage", fontStyle ='italic'),align = "center",verticalAlign = "bottom",
+            layout = "horizontal", padding = 5) 
+
+
+```
+
