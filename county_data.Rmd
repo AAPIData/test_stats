@@ -215,14 +215,14 @@ These tables use the 2011-2015 5YR data from the American Community Survey.
 # library(stringr)
 # county_pop_table2_combo_CA <- county_pop_table2_combo %>% filter(startsWith(fips,"06"))
 # 
-# highchart() %>% 
+# highchart() %>%
 #   hc_title(text = "AAPI County Level Population", align = "center") %>%
 #   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
 #   hc_chart(backgroundColor = "#ffffff") %>%
 #   hc_add_series_map(uscountygeojson, county_pop_table2_combo,
 #                     value = "aapi", joinBy = "fips")%>%
 #                    # borderColor= "null",
-#                    # boarderWidth = 0) %>% 
+#                    # boarderWidth = 0) %>%
 #   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
 #   hc_add_theme(hc_theme_538()) %>%
 #   hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
@@ -230,18 +230,18 @@ These tables use the 2011-2015 5YR data from the American Community Survey.
 # 
 # cities <- geojsonio::us_cities
 # 
-# highchart() %>% 
+# highchart() %>%
 #   hc_title(text = "AAPI County Level Population", align = "center") %>%
 #   hc_subtitle(text = "Source: 2011-2015 ACS using Asian/NHPI Combo", align = "center") %>%
 #   hc_chart(backgroundColor = "#ffffff") %>%
 #   hc_add_series_map(uscountygeojson, county_pop_table2_combo_CA,
 #                     value = "aapi", joinBy = "fips")%>%
 #                    # borderColor= "null",
-#                    # boarderWidth = 0) %>% 
+#                    # boarderWidth = 0) %>%
 #   hc_tooltip(pointFormat = tooltip_table(x,y,title), useHTML=T,  headerFormat= "")%>%
 #   hc_add_theme(hc_theme_538()) %>%
 #   hc_colorAxis(min = 0, max=100,stops = color_stops(n=5, RColorBrewer::brewer.pal(5,"Spectral")),labels= list(format = "{value}%"),showInLegend=T) %>%
 #   hc_mapNavigation(enabled = TRUE)
-
-```
+# 
+# ```
 

@@ -14,8 +14,6 @@ navbar:
     menu:
     - text: CVAP
       href: national_data.html#citizen-voting-age-population
-    - text: Detailed Origin
-      href: national_data.html#education
     - text: Education
       href: national_data.html#education
     - text: Limited English Proficiency
