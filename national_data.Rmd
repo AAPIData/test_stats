@@ -149,6 +149,16 @@ national_nativity<- national_nativity %>% rename(Group = group_name,
 
 ```
 
+```{r setup-1-population, include=FALSE}
+
+### Getting Rid of Estimates where the "CHECK" variable is flagging uncertainty
+
+## Hey Sunny! Take a look at previous "setup blocks", to see what you need to do here to get everything in shape, but you can put all the code you use for cleaning, adding columns, etc. to the population data here.
+
+
+
+```
+
 <div class="jumbotron">
   <h1>National Data</h1>
   <p>Use the buttons to select the topic and then the tabs for population groups</p>
@@ -449,3 +459,26 @@ national_tbl_display(national_nativity,"NHPI Detail Combo",nativity_columns,"Tot
   formatCurrency(columns = c("Total Pop", "Total Foreign Born"),currency = "", interval = 3, mark = ",", digits=0)
 
 ```
+
+
+
+## Population {.tabset .tabset-fade .tabset-pills}
+
+> Populationdata is complied using Table [?????](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/15_5YR/??????) from the 2015 ACS 5-Year estimates.
+
+
+```{r population graph, echo=FALSE, message=FALSE, warning=FALSE}
+
+### Hey Sunny! put the code for the graph here, take a look at lines 218-245 for commented code on how each part works
+### 
+
+```
+
+## Major racial groups
+```{r population major groups,echo=FALSE, message=FALSE, warning=FALSE}
+
+### Hey Sunny! put the code for the table here, take a look at lines 175-179 to see how the code works
+
+```
+
+## Asian Detail...
