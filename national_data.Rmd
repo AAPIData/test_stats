@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup-1-general, include=FALSE}
-
+# Loading Packages That we need
 library(forcats)
 library(DT)
 library(readxl)
@@ -23,23 +23,29 @@ hcoptslang$thousandsSep <- ","
 options(highcharter.lang = hcoptslang)
 
 # Read in data from excel file
-pop_id_lookup <- read_csv("pop_id_lookup.csv")
+pop_id_lookup <- read_csv("pop_id_lookup.csv") #Look-up table
 national_cvap<- readxl::read_xlsx("national_dta.xlsx", sheet = "cvap")
 national_edu<- readxl::read_xlsx("national_dta.xlsx", sheet = "edu")
 national_lep<- readxl::read_xlsx("national_dta.xlsx", sheet = "lep")
 national_nativity<- readxl::read_xlsx("national_dta.xlsx", sheet = "nativity")
 
+## Using the lookup table to merge in Group Names and the proper population ID names
 national_edu<-national_edu %>% left_join(pop_id_lookup) %>% select(-geoid, - geodisplaylabel)
 national_lep<-national_lep %>% left_join(pop_id_lookup) %>% select(-geoid, - geodisplaylabel)
 national_nativity<-national_nativity %>% left_join(pop_id_lookup) %>% select(-geoid, - geodisplaylabel)
+
+
+## Specifying Column Group names, to be used later
 nativity_columns <- c("Group", "Total Pop", "Foreign Born","Total Foreign Born")
-## Column Groups?
 cvap_columns <- c("Group", "CVAP", "Total")
 education_columns <- c("Group", "Total","Less than HS", "HS or GED", "Some College or AA", "BA or higher")
 lep_columns <- c("Group", "Total Pop", "Speak Other Language","LEP", "Total LEP")
 
+## Renaming CVAP
 national_cvap <-national_cvap %>% rename(Total = total_pop)
 
+
+#### Creating reusable Functions
 national_tbl_display <- function(data,group,column_names,orderby){
   data %>%
     filter(group_id ==  paste(group)) %>%
@@ -60,6 +66,7 @@ national_tbl_display <- function(data,group,column_names,orderby){
 
 ```{r setup-1-education, include=FALSE}
 
+## This is the setupt for the education data
 ### Getting Rid of Estimates where the "CHECK" variable is flagging uncertainty
 national_edu <- national_edu %>% 
   mutate(est_hsless = 
@@ -76,10 +83,12 @@ national_edu <- national_edu %>% select(-check_hsless,
                                   -check_somecollegeaa,
                                   -check_bahigher)
 
+# Creating Columns for percentages 
 national_edu <- national_edu %>% mutate(
   pct_hsless   = est_hsless/est_totpop,
   pct_bahigher = est_bahigher/ est_totpop)
 
+# Renaming columns
 national_edu<- national_edu %>% rename(Total = est_totpop,
          `Less than HS` = est_hsless,
          `HS or GED` = est_hsged,
@@ -152,10 +161,11 @@ national_nativity<- national_nativity %>% rename(Group = group_name,
 > Citizen Voting Age Population (CVAP) data is complied using Table [B05003](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/15_5YR/B05003) from the 2015 ACS 5-Year estimates.
 
 ## Major Racial Groups
+
 ```{r cvap major groups, echo=FALSE, message=FALSE, warning=FALSE}
 
-national_tbl_display(national_cvap,"Major racial groups",cvap_columns,"CVAP") %>% 
-  formatCurrency(columns = cvap_columns,currency = "", interval = 3, mark = ",", digits=0)
+national_tbl_display(national_cvap,"Major racial groups",cvap_columns,"CVAP") %>% # Use the function to display the national_cvap data, and then
+  formatCurrency(columns = cvap_columns,currency = "", interval = 3, mark = ",", digits=0) # format the columns in "cvap_columns" with the thousand separator so they look nice
 
 ```
 
@@ -208,30 +218,30 @@ According to the latest national estimates, about **1 in 2** Asian Americans hav
 ```{r edu graph major groups, echo=FALSE, message=FALSE, warning=FALSE}
 
 
-
-national_edu %>% 
-  filter(group_id ==  "Major racial groups") %>%
-  select(Group, pct_hsless, pct_bahigher) %>% 
-  arrange(desc(pct_bahigher)) %>%
-  mutate(`BA or Higher` = round((pct_bahigher*100),2),
-         `Less than HS` = round((pct_hsless*100),2))  %>%
-   select(-pct_hsless, -pct_bahigher) %>%
-  gather(estimate_type,estimate, -Group) %>%
-hchart( "bar", hcaes(x = Group , y = estimate, group = estimate_type)) %>%
-hc_add_theme(hc_theme_tufte2()) %>%  hc_colors(colors = c("#E26069","#008fd5")) %>%
+## Creating the graph
+national_edu %>% # Take education data and then,
+  filter(group_id ==  "Major racial groups") %>% # filter it so we only get rows belonging to "major racial groups" and then,
+  select(Group, pct_hsless, pct_bahigher) %>% # Select the columns named: Group, pct_hsless, pct_bahigher and then, 
+  arrange(desc(pct_bahigher)) %>% # Sort the columns according to: pct_bahigher and then,
+  mutate(`BA or Higher` = round((pct_bahigher*100),2), 
+         `Less than HS` = round((pct_hsless*100),2))  %>% # Create new columns, just taking pcts and multiplying by 100 for display and then,
+   select(-pct_hsless, -pct_bahigher) %>% # Drop those old columns and then,
+  gather(estimate_type,estimate, -Group) %>% # gather the columns (i.e pivot) and then,
+hchart( "bar", hcaes(x = Group , y = estimate, group = estimate_type)) %>% # Create a bar chart with X = Group, Y = estimate, and Group = Estimate_type and then,
+hc_add_theme(hc_theme_tufte2()) %>%  hc_colors(colors = c("#E26069","#008fd5")) %>% # add a theme and choose colors and then,
   hc_yAxis(title = list(text = ""),
          labels= list(style =list(color ="black", fontSize='18px'),
-                      format= "{value}%"), max = 100, opposite=TRUE) %>%
+                      format= "{value}%"), max = 100, opposite=TRUE) %>% # Alter titling and then,
   hc_xAxis(title = list(text = ""),
            labels= list(style =list(color ="#E5790D", fontSize='20px')),
             minorTickLength= 0,tickLength=0) %>%
-   hc_tooltip(pointFormat = "{series.name}: {point.y}%") %>%
+   hc_tooltip(pointFormat = "{series.name}: {point.y}%") %>% # create tool tip and then,
  hc_title(text = "Educational Attainment",
            margin = 20, align = "left",
-           style = list(color = "#E5790D"))%>%
+           style = list(color = "#E5790D"))%>% # Create title and then,
   hc_subtitle(text = "(2011-2015 ACS)",
             margin = 20, align = "left",
-           style = list(color = "#E5790D"))
+           style = list(color = "#E5790D")) # Add subtitle
 ```
 
 
